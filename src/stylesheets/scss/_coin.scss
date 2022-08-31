@@ -1,0 +1,40 @@
+/* =================================================
+  coins
+==================================================== */
+
+.row {
+    display: flex;
+    max-width: 100vw;
+}
+
+.coin {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.coin__image {
+    max-height: 25px;
+    margin-right: .5rem;
+}
+
+.coin__name {
+    margin-right: .5rem;
+}
+
+.coin__symbol {
+    text-transform: uppercase;
+}
+
+.coin__data {
+
+    border: 1px solid orange;
+}
+
+.coin__percent--red {
+    color: red;
+}
+
+.coin__percent--green {
+    color: green;
+}
