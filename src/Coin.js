@@ -8,7 +8,13 @@ const Coin = ({
   image,
   priceChange,
   rank,
+  ath,
+  ath_change,
+  ath_date,
 }) => {
+
+  // const date = ath_date.getFullYear()
+  
   return (
     <tr>
       <td>{rank}</td>
@@ -28,8 +34,11 @@ const Coin = ({
         </td>
       )}
       <td className="coin__volume">${market_cap.toLocaleString()}</td>
+      <td>${ath}</td>
+      <td>{ath_date}</td>
+      <td>{ath_change}%</td>
     </tr>
   );
-};
+};;
 
 export default Coin;

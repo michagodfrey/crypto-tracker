@@ -73,12 +73,9 @@ function App() {
       </header>
       <main>
         <form>
-          <input
-            className="search"
-            type="text"
-            onChange={handleChange}
-            placeholder="Search..."
-          />
+          <i className="material-icons search">search</i>
+          <input type="text" onChange={handleChange} placeholder="Search..." />
+          <i className="material-icons cancel">cancel</i>
         </form>
         <div className="table-container">
           <table>
@@ -89,6 +86,9 @@ function App() {
                 <th>Price</th>
                 <th>% Change 24hr</th>
                 <th>Market Cap</th>
+                <th>All Time High</th>
+                <th>ATH Date</th>
+                <th>% ATH Change</th>
               </tr>
             </thead>
             <tbody>
@@ -103,6 +103,9 @@ function App() {
                     image={coin.image}
                     priceChange={coin.price_change_percentage_24h}
                     rank={coin.market_cap_rank}
+                    ath={coin.ath}
+                    ath_change={coin.ath_change_percentage}
+                    ath_date={coin.ath_date}
                   />
                 );
               })}

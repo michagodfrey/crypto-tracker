@@ -29,13 +29,6 @@ form {
   justify-content: center;
 }
 
-.search {
-  /* width: 100%; */
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  padding: 0.5rem;
-}
-
 .table-container {
   overflow-x: auto;
 }
