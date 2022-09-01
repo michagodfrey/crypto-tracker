@@ -44,7 +44,9 @@ function App() {
             Data provided by <a href="https://www.coingecko.com/">CoinGecko</a>
           </span>
         </header>
-        <main>Loading...</main>
+        <main>
+          <div className="loading">Loading...</div>
+        </main>
       </>
     );
   }
@@ -58,7 +60,9 @@ function App() {
             Data provided by <a href="https://www.coingecko.com/">CoinGecko</a>
           </span>
         </header>
-        <main>Sorry I cocked up</main>
+        <main>
+          <div className="error">Error loading data.</div>
+        </main>
       </>
     );
   }
@@ -73,9 +77,8 @@ function App() {
       </header>
       <main>
         <form>
-          <i className="material-icons search">search</i>
+          <i className="material-icons search-icon">search</i>
           <input type="text" onChange={handleChange} placeholder="Search..." />
-          <i className="material-icons cancel">cancel</i>
         </form>
         <div className="table-container">
           <table>
