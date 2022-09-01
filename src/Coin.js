@@ -1,4 +1,5 @@
 import React from "react";
+import { format } from "date-fns";
 
 const Coin = ({
   name,
@@ -12,9 +13,9 @@ const Coin = ({
   ath_change,
   ath_date,
 }) => {
-
-  // const date = ath_date.getFullYear()
   
+  const ath_date_parsed = Date.parse(ath_date);
+
   return (
     <tr>
       <td>{rank}</td>
@@ -35,10 +36,10 @@ const Coin = ({
       )}
       <td className="coin__volume">${market_cap.toLocaleString()}</td>
       <td>${ath}</td>
-      <td>{ath_date}</td>
+      <td>{format(ath_date_parsed, "yyyy/MM/dd")}</td>
       <td>{ath_change}%</td>
     </tr>
   );
-};;
+};
 
 export default Coin;
