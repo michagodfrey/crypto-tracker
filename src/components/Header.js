@@ -7,9 +7,7 @@ const Header = () => {
       <Link to="/">
         <span>Crypto Price Tracker</span>
       </Link>
-      <span>
-        Data provided by <a href="https://www.coingecko.com/">CoinGecko</a>
-      </span>
+      <span>Login/Signup</span>
     </header>
   );
 }

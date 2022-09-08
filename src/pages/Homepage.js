@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import Header from "../components/Header";
-import Coin from "../components/Coin";
+import CoinRow from "../components/CoinRow";
+import Footer from "../components/Footer";
 
 const Homepage = () => {
   const [coins, setCoins] = useState([]);
@@ -23,7 +24,7 @@ const Homepage = () => {
       )
       .then((res) => {
         setLoading(false);
-        console.log(res.data);
+        // console.log(res.data);
         setCoins(res.data);
       })
       .catch((error) => {
@@ -49,6 +50,7 @@ const Homepage = () => {
         <main>
           <div className="loading">Loading...</div>
         </main>
+        <Footer />
       </>
     );
   }
@@ -60,6 +62,7 @@ const Homepage = () => {
         <main>
           <div className="error">Error loading data.</div>
         </main>
+        <Footer />
       </>
     );
   }
@@ -87,16 +90,14 @@ const Homepage = () => {
                 <th>Price</th>
                 <th>% Change 24hr</th>
                 <th>Market Cap</th>
-                <th>All Time High</th>
-                <th>ATH Date</th>
-                <th>% ATH Change</th>
               </tr>
             </thead>
             <tbody>
               {filteredCoins.slice(pages, pages + coinsPerPage).map((coin) => {
                 return (
-                  <Coin
+                  <CoinRow
                     key={coin.id}
+                    id={coin.id}
                     name={coin.name}
                     price={coin.current_price}
                     symbol={coin.symbol}
@@ -104,9 +105,6 @@ const Homepage = () => {
                     image={coin.image}
                     priceChange={coin.price_change_percentage_24h}
                     rank={coin.market_cap_rank}
-                    ath={coin.ath}
-                    ath_change={coin.ath_change_percentage}
-                    ath_date={coin.ath_date}
                   />
                 );
               })}
@@ -126,6 +124,7 @@ const Homepage = () => {
           activeClassName={"pagination__btn--active"}
         />
       </main>
+      <Footer />
     </>
   );
 };
