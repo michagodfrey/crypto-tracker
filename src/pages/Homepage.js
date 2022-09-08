@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Header from "../components/Header";
+import Banner from "../components/Banner";
 import CoinRow from "../components/CoinRow";
 import Footer from "../components/Footer";
 
@@ -24,7 +26,7 @@ const Homepage = () => {
       )
       .then((res) => {
         setLoading(false);
-        // console.log(res.data);
+        console.log(res.data);
         setCoins(res.data);
       })
       .catch((error) => {
@@ -77,6 +79,7 @@ const Homepage = () => {
     <>
       <Header />
       <main>
+        <Banner />
         <form>
           <i className="material-icons search-icon">search</i>
           <input type="text" onChange={handleChange} placeholder="Search..." />
@@ -89,7 +92,8 @@ const Homepage = () => {
                 <th>Coin</th>
                 <th>Price</th>
                 <th>% Change 24hr</th>
-                <th>Market Cap</th>
+                <th className="coin-row__hideMobile">Volume 24hr</th>
+                <th className="coin-row__hideMobile">Market Cap</th>
               </tr>
             </thead>
             <tbody>
@@ -105,15 +109,17 @@ const Homepage = () => {
                     image={coin.image}
                     priceChange={coin.price_change_percentage_24h}
                     rank={coin.market_cap_rank}
+                    volume={coin.total_volume}
                   />
                 );
               })}
             </tbody>
           </table>
         </div>
+
         <ReactPaginate
-          previousLabel={"Previous"}
-          nextLabel={"Next"}
+          previousLabel={<FaChevronLeft />}
+          nextLabel={<FaChevronRight />}
           pageCount={pageCount}
           onPageChange={changePage}
           forcePage={currentPage}

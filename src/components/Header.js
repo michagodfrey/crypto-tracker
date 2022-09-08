@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header>
       <Link to="/">
-        <span>Crypto Price Tracker</span>
+        <span>To the Moon Crypto Tracker</span>
       </Link>
       <span>Login/Signup</span>
     </header>

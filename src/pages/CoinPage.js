@@ -20,7 +20,7 @@ const CoinPage = () => {
       .then((res) => {
         setLoading(false);
         setCoin(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((error) => {
         setError(true);
@@ -78,17 +78,101 @@ const CoinPage = () => {
           </div>
 
           <div className="coin__container">
-              <p>Market Cap</p>
-              {coin.market_data?.market_cap ? (
-                <p>${coin.market_data.market_cap.usd.toLocaleString()}</p>
-              ) : null}
+            <p>Market Cap</p>
+            {coin.market_data?.market_cap ? (
+              <p>${coin.market_data.market_cap.usd.toLocaleString()}</p>
+            ) : null}
           </div>
 
           <div className="coin__container">
-              <p>Circulating Supply</p>
-              {coin.market_data ? (
-                <p>{coin.market_data.circulating_supply.toLocaleString()}</p>
-              ) : null}
+            <p>Circulating Supply</p>
+            {coin.market_data ? (
+              <p>{coin.market_data.circulating_supply.toLocaleString()}</p>
+            ) : null}
+          </div>
+
+          <div className="coin__table">
+            <table>
+              <thead>
+                <tr>
+                  <th>ATH</th>
+                  <th>ATH Date</th>
+                  <th>% Change</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div>
+                      {coin.market_data?.ath ? (
+                        <p>${coin.market_data.ath.usd.toLocaleString()}</p>
+                      ) : null}
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      {coin.market_data?.ath_date ? (
+                        <p>
+                          {format(
+                            new Date(coin.market_data.ath_date.usd),
+                            "yyyy/MM/dd"
+                          )}
+                        </p>
+                      ) : null}
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      {coin.market_data?.ath_change_percentage ? (
+                        <p>{coin.market_data.ath_change_percentage.usd}%</p>
+                      ) : null}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="coin__table">
+            <table>
+              <thead>
+                <tr>
+                  <th>ATL</th>
+                  <th>ATL Date</th>
+                  <th>% Change</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div>
+                      {coin.market_data?.atl ? (
+                        <p>${coin.market_data.atl.usd.toLocaleString()}</p>
+                      ) : null}
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      {coin.market_data?.atl_date ? (
+                        <p>
+                          {format(
+                            new Date(coin.market_data.atl_date.usd),
+                            "yyyy/MM/dd"
+                          )}
+                        </p>
+                      ) : null}
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      {coin.market_data?.atl_change_percentage ? (
+                        <p>{coin.market_data.atl_change_percentage.usd}%</p>
+                      ) : null}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -116,7 +200,7 @@ const CoinPage = () => {
             ) : null}
           </div>
 
-          <div className="coin__table">
+          {/* <div className="coin__table">
             <table>
               <thead>
                 <tr>
@@ -185,7 +269,7 @@ const CoinPage = () => {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> */}
         </div>
       </main>
       <section className="coin__description">

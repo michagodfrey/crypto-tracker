@@ -10,7 +10,8 @@ const Coin = ({
   market_cap,
   image,
   priceChange,
-  rank
+  rank,
+  volume
 }) => {
   return (
     <tr>
@@ -22,13 +23,14 @@ const Coin = ({
           <p className="coin-row__symbol">{symbol}</p>
         </Link>
       </td>
-      <td>${price.toLocaleString()}</td>
+      <td>${price}</td>
       {priceChange < 0 ? (
         <td className="coin-row__percent--red">{priceChange.toFixed(2)}%</td>
       ) : (
         <td className="coin-row__percent--green">{priceChange.toFixed(2)}%</td>
       )}
-      <td>${market_cap.toLocaleString()}</td>
+      <td className="coin-row__hideMobile">${volume.toLocaleString()}</td>
+      <td className="coin-row__hideMobile">${market_cap.toLocaleString()}</td>
     </tr>
   );
 };
