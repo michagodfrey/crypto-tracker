@@ -17,16 +17,16 @@ const Coin = ({
       <td>{rank}</td>
       <td className="coin-row">
         <Link to={`/coins/${id}`}>
-          <img className="coin-row__image" src={image} alt="coin" />
-          <h2 className="coin-row__name">{name}</h2>
-          <p className="coin-row__symbol">{symbol}</p>
+          <img src={image} alt="coin" />
+          <h2>{name}</h2>
+          <p>{symbol.toUpperCase()}</p>
         </Link>
       </td>
       {price > 1000 ? <td>${price.toLocaleString()}</td> : <td>${price}</td>}
       {priceChange < 0 ? (
-        <td className="coin-row__percent--red">{priceChange.toFixed(2)}%</td>
+        <td className="red">{priceChange.toFixed(2)}%</td>
       ) : (
-        <td className="coin-row__percent--green">{priceChange.toFixed(2)}%</td>
+        <td className="green">{priceChange.toFixed(2)}%</td>
       )}
       <td className="coin-row__hideMobile">${volume.toLocaleString()}</td>
       <td className="coin-row__hideMobile">${market_cap.toLocaleString()}</td>

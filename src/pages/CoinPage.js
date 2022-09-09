@@ -13,6 +13,8 @@ const CoinPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  const [readMore, setReadMore] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     setError(false);
@@ -63,8 +65,8 @@ const CoinPage = () => {
           <div>{coin.image ? <img src={coin.image.large} alt="" /> : null}</div>
 
           <div className="coin__container">
-            <div>{coin.name}</div>
-            <div className="coin__rank">Rank # {coin.market_cap_rank}</div>
+            <h2>{coin.name}</h2>
+            <span className="coin__rank">Rank # {coin.market_cap_rank}</span>
           </div>
 
           <div className="coin__container">
@@ -133,17 +135,17 @@ const CoinPage = () => {
                   <td>
                     <div>
                       {coin.market_data?.ath_change_percentage ? (
-                        <p>{coin.market_data.ath_change_percentage.usd}%</p>
+                        <p className="red">
+                          {coin.market_data.ath_change_percentage.usd.toFixed(
+                            2
+                          )}
+                          %
+                        </p>
                       ) : null}
                     </div>
                   </td>
                 </tr>
               </tbody>
-            </table>
-          </div>
-
-          <div className="coin__table">
-            <table>
               <thead>
                 <tr>
                   <th>ATL</th>
@@ -175,7 +177,12 @@ const CoinPage = () => {
                   <td>
                     <div>
                       {coin.market_data?.atl_change_percentage ? (
-                        <p>{coin.market_data.atl_change_percentage.usd}%</p>
+                        <p className="green">
+                          {coin.market_data.atl_change_percentage.usd.toFixed(
+                            2
+                          )}
+                          %
+                        </p>
                       ) : null}
                     </div>
                   </td>
@@ -187,7 +194,7 @@ const CoinPage = () => {
 
         <div className="coin__flexItem2">
           <div className="coin__graph">
-            <CoinGraph coin={coin}/>
+            <CoinGraph coin={coin} />
           </div>
 
           <div className="coin__container">
@@ -196,31 +203,55 @@ const CoinPage = () => {
               <p>${coin.market_data.total_volume.usd.toLocaleString()}</p>
             ) : null}
           </div>
+          <div className="coin__outer-container">
+            <div className="coin__container coin__container--stretch">
+              <h4>24 Hour High</h4>
+              {coin.market_data?.high_24h ? (
+                <p className="green">
+                  ${coin.market_data.high_24h.usd.toLocaleString()}
+                </p>
+              ) : null}
+            </div>
 
-          <div className="coin__container">
-            <h4>24 Hour High</h4>
-            {coin.market_data?.high_24h ? (
-              <p>${coin.market_data.high_24h.usd.toLocaleString()}</p>
-            ) : null}
-          </div>
-
-          <div className="coin__container">
-            <h4>24 Hour Low</h4>
-            {coin.market_data?.low_24h ? (
-              <p>${coin.market_data.low_24h.usd.toLocaleString()}</p>
-            ) : null}
+            <div className="coin__container coin__container--stretch">
+              <h4>24 Hour Low</h4>
+              {coin.market_data?.low_24h ? (
+                <p className="red">
+                  ${coin.market_data.low_24h.usd.toLocaleString()}
+                </p>
+              ) : null}
+            </div>
           </div>
         </div>
       </main>
 
       <section className="coin__description">
-        <p
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(
-              coin.description ? coin.description.en : ""
-            ),
-          }}
-        ></p>
+        <h3>Description:</h3>
+        {readMore ? (
+          <p
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(
+                coin.description ? coin.description.en : ""
+              ),
+            }}
+          ></p>
+        ) : (
+          <p
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(
+                coin.description
+                  ? `${coin.description.en.substring(0, 200)}...`
+                  : ""
+              ),
+            }}
+          ></p>
+        )}
+        <button
+          className="read-more-btn"
+          onClick={() => setReadMore(!readMore)}
+        >
+          {readMore ? "show less" : " read more"}
+        </button>
       </section>
       <Footer />
     </>

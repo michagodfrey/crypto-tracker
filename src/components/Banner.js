@@ -30,11 +30,11 @@ const Banner = () => {
           <div className="carousel__row">
             <span>{coin.symbol.toUpperCase()}</span>
             {coin.price_change_24h < 0 ? (
-              <span className="coin-row__percent--red">
+              <span className="red">
                 {coin.price_change_24h.toFixed(2)}%
               </span>
             ) : (
-              <span className="coin-row__percent--green">
+              <span className="green">
                 {coin.price_change_24h.toFixed(2)}%
               </span>
             )}
@@ -63,9 +63,9 @@ const Banner = () => {
   return (
     <>
       <div className="banner">
-        <img className="banner__img" src={rocket} alt="rocket" />
+        <img src={moon} alt="moon" />
         <h1>To the Moon Crypto Tracker</h1>
-        <img className="banner__img" src={moon} alt="moon" />
+        <img src={rocket} alt="rocket" />
       </div>
 
       <div className="carousel">

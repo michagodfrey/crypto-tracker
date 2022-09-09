@@ -14,6 +14,22 @@ body {
 
 h1 {
   font-family: 'Bree Serif', serif;
+  padding: 0 1rem;
+  text-align: center;
+  color: gold;
+  text-shadow: 0 1px 0px #6e22b5, 1px 0 0px #8A2BE2, 1px 2px 1px #6e22b5, 2px 1px 1px #8A2BE2, 2px 3px 2px #6e22b5, 3px 2px 2px #8A2BE2, 3px 4px 2px #6e22b5, 4px 3px 3px #8A2BE2, 4px 5px 3px #6e22b5, 5px 4px 2px #8A2BE2, 5px 6px 2px #6e22b5, 6px 5px 2px #8A2BE2, 6px 7px 1px #6e22b5, 7px 6px 1px #8A2BE2, 7px 8px 0px #6e22b5, 8px 7px 0px #8A2BE2;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 4rem;
+  }
 }
 
 a, a:visited {
@@ -29,10 +45,16 @@ main {
 
 header {
   padding: 1.5rem;
-  background-color: black;
+  background-color: #1c092d;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   text-decoration: underline;
+}
+
+header img {
+  height: 50px;
+  width: 50px;
 }
 
 footer {
@@ -42,12 +64,19 @@ footer {
   text-decoration: underline;
 }
 
+.red {
+  color: red;
+}
+
+.green {
+  color: lime;
+}
+
 /* =================================================
   loading error, not found
 ==================================================== */
 
 .loading {
-  color: white;
   font-size: 3rem;
   text-align: center;
   margin: 4rem 0;
@@ -61,7 +90,6 @@ footer {
 }
 
 .not-found {
-  color: white;
   font-size: 3rem;
   text-align: center;
   margin: 4rem 0;
@@ -77,10 +105,21 @@ footer {
   margin: 0 auto;
 }
 
-.banner__img {
+.banner span {
+  text-align: center;
+}
+
+.banner img {
   height: 50px;
   width: 50px;
-  margin: 0 1rem;
+  margin: 0 1.5rem;
+  display: none;
+}
+
+@media (min-width: 768px) {
+.banner img {
+    display: flex;
+  }
 }
 
 .carousel__box {
@@ -159,12 +198,6 @@ table {
   width: 100%;
 }
 
-/* th,
-tr,
-td {
-  border: 1px solid black;
-} */
-
 td {
   text-align: center;
 }
@@ -191,25 +224,13 @@ td {
   width: 100%;
 }
 
-.coin-row__image {
+.coin-row img {
   max-height: 25px;
   margin-right: 0.5rem;
 }
 
-.coin-row__name {
+.coin-row h2 {
   margin-right: 0.5rem;
-}
-
-.coin-row__symbol {
-  text-transform: uppercase;
-}
-
-.coin-row__percent--red {
-  color: red;
-}
-
-.coin-row__percent--green {
-  color: green;
 }
 
 .coin-row__hideMobile {
@@ -271,11 +292,8 @@ td {
   padding-top: .75rem;
 }
 
-.coin__container {
-  border: 1px solid blueviolet;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 .75rem;
+.coin img {
+  max-height: 150px;
 }
 
 .coin__flexItem1 {
@@ -286,17 +304,38 @@ td {
   flex: 1 1 70%;
 }
 
-/* .coin__graph {
+.coin__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 .75rem;
+}
+
+.coin__rank {
+  background-color: blueviolet;
+  padding: .25rem;
+  border-radius: 5px;
+}
+
+.coin__graph {
   background-color: white;
   color: black;
   width: 100%;
   min-height: 200px;
   display: grid;
   place-content: center;
-} */
+}
 
 .coin__table {
   display: none;
+}
+
+.coin__table th {
+  color: gold;
+}
+
+section h3 {
+  margin: 20px 0 0 1rem;
 }
 
 .coin__description p {
@@ -307,7 +346,29 @@ td {
   
 }
 
+.coin__description a {
+  text-decoration: underline;
+}
+
+.read-more-btn {
+  border: 1px solid white;
+  border-radius: 5px;
+  background: #333;
+  padding: .5rem;
+  display: block;
+  margin: 0 auto;
+}
+
 @media (min-width: 768px) {
+
+  .coin img {
+    max-height: 250px;
+  }
+
+    section h3 {
+      margin: 20px 0 0 1.5rem;
+    }
+
   .coin__description p {
     column-count: 2;
     column-gap: 1.5rem;
@@ -320,18 +381,35 @@ td {
   .coin {
     flex-direction: row;
   }
-
-  .coin__graph {
-    min-height: 500px;
+  .coin__flexItem1 {
+    border-right: 1px solid white;
   }
+
+  /* .coin__graph {
+    min-height: 500px;
+  } */
 
   .coin__table {
     display: flex;
   }
 
+  .coin__outer-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .coin__container--stretch {
+    width: 50%
+  }
+
+    section h3 {
+      margin: 20px 0 0 2rem;
+    }
+
   .coin__description p {
     column-count: 3;
     column-gap: 2rem;
-    padding: 2rem;
+    padding: 1rem 2rem .5rem;
   }
+
 }
