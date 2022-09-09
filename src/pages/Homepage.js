@@ -26,7 +26,7 @@ const Homepage = () => {
       )
       .then((res) => {
         setLoading(false);
-        console.log(res.data);
+        // console.log(res.data);
         setCoins(res.data);
       })
       .catch((error) => {

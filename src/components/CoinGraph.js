@@ -7,9 +7,6 @@ const CoinGraph = ({ coin }) => {
     const [chartData, setChartData] = useState();
     const [days, setDays] = useState(1);
 
-    console.log(coin.id)
-
-
     useEffect(() => {
       axios
         .get(
@@ -23,7 +20,7 @@ const CoinGraph = ({ coin }) => {
           console.log(error);
         });
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
   return (
     <div>
@@ -43,6 +40,13 @@ const CoinGraph = ({ coin }) => {
               label: `Price ( Past ${days} Days )`,
             },
           ],
+        }}
+        options={{
+          elements: {
+            point: {
+              radius: 1,
+            },
+          },
         }}
       />
     </div>

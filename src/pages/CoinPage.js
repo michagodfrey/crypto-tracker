@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { format } from "date-fns";
 import Header from "../components/Header";
+import CoinGraph from "../components/CoinGraph";
 import Footer from "../components/Footer";
 
 const CoinPage = () => {
@@ -72,7 +73,15 @@ const CoinPage = () => {
             </div>
             <div>
               {coin.market_data?.current_price ? (
-                <p>${coin.market_data.current_price.usd.toLocaleString()}</p>
+                <>
+                  {coin.market_data.current_price.usd > 1000 ? (
+                    <p>
+                      ${coin.market_data.current_price.usd.toLocaleString()}
+                    </p>
+                  ) : (
+                    <p>${coin.market_data.current_price.usd}</p>
+                  )}
+                </>
               ) : null}
             </div>
           </div>
@@ -115,7 +124,7 @@ const CoinPage = () => {
                         <p>
                           {format(
                             new Date(coin.market_data.ath_date.usd),
-                            "yyyy/MM/dd"
+                            "dd/MM/yyyy"
                           )}
                         </p>
                       ) : null}
@@ -157,7 +166,7 @@ const CoinPage = () => {
                         <p>
                           {format(
                             new Date(coin.market_data.atl_date.usd),
-                            "yyyy/MM/dd"
+                            "dd/MM/yyyy"
                           )}
                         </p>
                       ) : null}
@@ -177,7 +186,9 @@ const CoinPage = () => {
         </div>
 
         <div className="coin__flexItem2">
-          <div className="coin__graph">graph will go here</div>
+          <div className="coin__graph">
+            <CoinGraph coin={coin}/>
+          </div>
 
           <div className="coin__container">
             <h4>24 Hour Volume</h4>
@@ -199,79 +210,9 @@ const CoinPage = () => {
               <p>${coin.market_data.low_24h.usd.toLocaleString()}</p>
             ) : null}
           </div>
-
-          {/* <div className="coin__table">
-            <table>
-              <thead>
-                <tr>
-                  <th>ATH</th>
-                  <th>ATH Date</th>
-                  <th>% ATH Change</th>
-                  <th>ATL</th>
-                  <th>ATL Date</th>
-                  <th>% ATL Change</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div>
-                      {coin.market_data?.ath ? (
-                        <p>${coin.market_data.ath.usd.toLocaleString()}</p>
-                      ) : null}
-                    </div>
-                  </td>
-                  <td>
-                    <div>
-                      {coin.market_data?.ath_date ? (
-                        <p>
-                          {format(
-                            new Date(coin.market_data.ath_date.usd),
-                            "yyyy/MM/dd"
-                          )}
-                        </p>
-                      ) : null}
-                    </div>
-                  </td>
-                  <td>
-                    <div>
-                      {coin.market_data?.ath_change_percentage ? (
-                        <p>{coin.market_data.ath_change_percentage.usd}%</p>
-                      ) : null}
-                    </div>
-                  </td>
-                  <td>
-                    <div>
-                      {coin.market_data?.atl ? (
-                        <p>${coin.market_data.atl.usd.toLocaleString()}</p>
-                      ) : null}
-                    </div>
-                  </td>
-                  <td>
-                    <div>
-                      {coin.market_data?.atl_date ? (
-                        <p>
-                          {format(
-                            new Date(coin.market_data.atl_date.usd),
-                            "yyyy/MM/dd"
-                          )}
-                        </p>
-                      ) : null}
-                    </div>
-                  </td>
-                  <td>
-                    <div>
-                      {coin.market_data?.atl_change_percentage ? (
-                        <p>{coin.market_data.atl_change_percentage.usd}%</p>
-                      ) : null}
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div> */}
         </div>
       </main>
+
       <section className="coin__description">
         <p
           dangerouslySetInnerHTML={{
