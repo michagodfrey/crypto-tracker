@@ -50,6 +50,7 @@ header {
   justify-content: space-between;
   align-items: center;
   text-decoration: underline;
+  color: gold;
 }
 
 header img {
@@ -57,11 +58,29 @@ header img {
   width: 50px;
 }
 
+header span {
+  color: gold;
+  cursor: pointer;
+}
+
 footer {
   padding: 1.5rem;
   display: flex;
   justify-content: center;
   text-decoration: underline;
+}
+
+hr {
+  width: 80%;
+  border: 1px solid white;
+  margin-top: 1rem;
+  opacity: .5;
+}
+
+@media (min-width: 1024px) {
+  hr {
+    margin-top: 2rem;
+  }
 }
 
 .red {
@@ -142,6 +161,7 @@ footer {
   text-align: center;
   font-size: 1.5rem;
   margin: 0;
+  color: gold;
 }
 
 /* =================================================
@@ -233,16 +253,16 @@ td {
   margin-right: 0.5rem;
 }
 
-.coin-row__hideMobile {
-  /* display: none; */
+/* .coin-row__hideMobile {
+  
 }
 
 @media (min-width: 768px) {
   .coin-row__hideMobile {
-      /* display:inline-table; */
+      
 
     }
-}
+} */
 
 /* =================================================
   pagination
@@ -288,6 +308,8 @@ td {
 ==================================================== */
 
 .coin {
+  display: flex;
+  flex-direction: column;
   text-align: center;
   padding-top: .75rem;
 }
@@ -308,6 +330,7 @@ td {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: left;
   padding: 0 .75rem;
 }
 
@@ -315,15 +338,6 @@ td {
   background-color: blueviolet;
   padding: .25rem;
   border-radius: 5px;
-}
-
-.coin__graph {
-  background-color: white;
-  color: black;
-  width: 100%;
-  min-height: 200px;
-  display: grid;
-  place-content: center;
 }
 
 .coin__table {
@@ -334,7 +348,33 @@ td {
   color: gold;
 }
 
-section h3 {
+.coin__chart {
+  margin: 0 .25rem;
+}
+
+.coin__chart-btn {
+  border: 1px solid blueviolet;
+  border-radius: 5px;
+  background-color: gold;
+  color: black;
+  cursor: pointer;
+  margin: .25rem;
+}
+
+.coin__chart-btn:hover {
+  background-color: #ffe766;
+}
+
+.coin__chart-btn--active {
+  background-color: blueviolet;
+  color: white;
+  border: 1px solid gold;
+  border-radius: 5px;
+  margin: .25rem;
+  font-weight: bold;
+}
+
+.coin__description h3 {
   margin: 20px 0 0 1rem;
 }
 
@@ -343,7 +383,7 @@ section h3 {
   line-height: normal;
   padding: 1rem;
   margin: 0 auto;
-  
+
 }
 
 .coin__description a {
@@ -357,7 +397,9 @@ section h3 {
   padding: .5rem;
   display: block;
   margin: 0 auto;
+  cursor: pointer;
 }
+
 
 @media (min-width: 768px) {
 
@@ -365,9 +407,9 @@ section h3 {
     max-height: 250px;
   }
 
-    section h3 {
-      margin: 20px 0 0 1.5rem;
-    }
+  .coin__description h3 {
+    margin: 20px 0 0 1.5rem;
+  }
 
   .coin__description p {
     column-count: 2;
@@ -385,12 +427,13 @@ section h3 {
     border-right: 1px solid white;
   }
 
-  /* .coin__graph {
-    min-height: 500px;
-  } */
-
   .coin__table {
     display: flex;
+  }
+
+  .coin__chart {
+    margin: 0 .5rem;
+    max-width: 70vw;
   }
 
   .coin__outer-container {
@@ -402,9 +445,9 @@ section h3 {
     width: 50%
   }
 
-    section h3 {
-      margin: 20px 0 0 2rem;
-    }
+  .coin__description h3 {
+    margin: 20px 0 0 2rem;
+  }
 
   .coin__description p {
     column-count: 3;

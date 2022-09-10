@@ -7,6 +7,11 @@ import { Chart as ChartJS } from "chart.js/auto";
 const CoinGraph = ({ coin }) => {
     const [chartData, setChartData] = useState();
     const [days, setDays] = useState(1);
+    const [isActive, setIsActive] = useState (false);
+
+    const toggleClass = () => {
+      setIsActive(!isActive);
+    }
 
     useEffect(() => {
       axios
@@ -21,7 +26,7 @@ const CoinGraph = ({ coin }) => {
           console.log(error);
         });
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [days]);
 
     const chartDays = [
       {
@@ -40,15 +45,14 @@ const CoinGraph = ({ coin }) => {
         label: "1 Year",
         value: 365,
       },
+      {
+        label: "Max",
+        value: 3000,
+      }
     ];
 
-    // console.log(chartDays.label)
-    // console.log(chartDays)
-
-    console.log(days);
-
   return (
-    <div>
+    <div className="coin__chart">
       {!chartData ? (
         <p>Loading chart data...</p>
       ) : (
@@ -67,51 +71,33 @@ const CoinGraph = ({ coin }) => {
                 {
                   data: chartData.map((coin) => coin[1]),
                   label: `Price ( Past ${days} Days )`,
+                  borderColor: "gold",
+                  backgroundColor: "#333",
                 },
               ],
             }}
+            options={{
+              elements: {
+                point: {
+                  radius: 1,
+                },
+              },
+            }}
           />
-          {/* <div>
-            <button
-              onClick={() => {
-                setDays(1);
-              }}
-            >
-              1 Day
-            </button>
-            <button
-              onClick={() => {
-                setDays(30);
-              }}
-            >
-              30 Days
-            </button>
-            <button
-              onClick={() => {
-                setDays(90);
-              }}
-            >
-              3 Months
-            </button>
-            <button
-              onClick={() => {
-                setDays(365);
-              }}
-            >
-              1 Year
-            </button>
-          </div> */}
           <div>
             {chartDays.map((day) => {
-              <button
-                key={day.value}
-                onClick={() => {
-                  setDays(day.value);
-                }}
-                selected={day.value === days}
-              >
-                {day.label}
-              </button>;
+              return (
+                <button
+                  className={isActive ? "coin__chart-btn--active" : "coin__chart-btn"}
+                  key={day.value}
+                  onClick={() => {
+                    setDays(day.value);
+                    toggleClass();
+                  }}
+                >
+                  {day.label}
+                </button>
+              );
             })}
           </div>
         </>
