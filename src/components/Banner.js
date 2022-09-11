@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import axios from "axios";
-import moon from "../moon.png";
-import rocket from "../rocket.png";
+import moon from "../clipart/moon.png";
+import rocket from "../clipart/rocket.png";
 import AliceCarousel from 'react-alice-carousel';
 import { Link } from "react-router-dom";
 
@@ -29,13 +29,13 @@ const Banner = () => {
           <img className="carousel__img" src={coin?.image} alt={coin.name} />
           <div className="carousel__row">
             <span>{coin.symbol.toUpperCase()}</span>
-            {coin.price_change_24h < 0 ? (
+            {coin.market_cap_change_percentage_24h < 0 ? (
               <span className="red">
-                {coin.price_change_24h.toFixed(2)}%
+                {coin.market_cap_change_percentage_24h.toFixed(2)}%
               </span>
             ) : (
               <span className="green">
-                {coin.price_change_24h.toFixed(2)}%
+                {coin.market_cap_change_percentage_24h.toFixed(2)}%
               </span>
             )}
           </div>

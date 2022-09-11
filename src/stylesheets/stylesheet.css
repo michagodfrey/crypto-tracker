@@ -136,7 +136,7 @@ footer {
   homepage banner
 ==================================================== */
 .banner {
-  background-image: url("../bg-image.jpg");
+  background-image: url("../clipart/bg-image.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -196,6 +196,7 @@ footer {
 .carousel__price {
   text-align: center;
   font-size: 1.5rem;
+  font-weight: bold;
   margin: 0;
   color: gold;
 }
