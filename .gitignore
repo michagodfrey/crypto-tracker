@@ -7,7 +7,6 @@
 
 # testing
 /coverage
-readMoreAttempt.js
 
 # production
 /build

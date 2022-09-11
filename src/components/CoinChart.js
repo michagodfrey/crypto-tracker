@@ -7,11 +7,7 @@ import { Chart as ChartJS } from "chart.js/auto";
 const CoinGraph = ({ coin }) => {
     const [chartData, setChartData] = useState();
     const [days, setDays] = useState(1);
-    const [isActive, setIsActive] = useState (false);
-
-    const toggleClass = () => {
-      setIsActive(!isActive);
-    }
+    const [activeBtn, setActiveBtn] = useState("24 Hours");
 
     useEffect(() => {
       axios
@@ -32,6 +28,10 @@ const CoinGraph = ({ coin }) => {
       {
         label: "24 Hours",
         value: 1,
+      },
+      {
+        label: "7 Days",
+        value: 7,
       },
       {
         label: "30 Days",
@@ -70,9 +70,9 @@ const CoinGraph = ({ coin }) => {
               datasets: [
                 {
                   data: chartData.map((coin) => coin[1]),
-                  label: `Price ( Past ${days} Days )`,
+                  label: "Price in USD",
                   borderColor: "gold",
-                  backgroundColor: "#333",
+                  backgroundColor: "gold",
                 },
               ],
             }}
@@ -82,17 +82,30 @@ const CoinGraph = ({ coin }) => {
                   radius: 1,
                 },
               },
+              scales: {
+                y: {
+                  ticks: {
+                    callback: function (value) {
+                        return "$" + value;    
+                    },
+                  },
+                },
+              },
             }}
           />
           <div>
             {chartDays.map((day) => {
               return (
                 <button
-                  className={isActive ? "coin__chart-btn--active" : "coin__chart-btn"}
+                  className={
+                    activeBtn === day.label
+                      ? "coin__chart-btn--active"
+                      : "coin__chart-btn"
+                  }
                   key={day.value}
                   onClick={() => {
                     setDays(day.value);
-                    toggleClass();
+                    setActiveBtn(day.label);
                   }}
                 >
                   {day.label}

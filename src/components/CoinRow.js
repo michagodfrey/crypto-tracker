@@ -13,9 +13,9 @@ const Coin = ({
   volume
 }) => {
   return (
-    <tr>
+    <tr className="coin-row">
       <td>{rank}</td>
-      <td className="coin-row">
+      <td className="coin-row__coin">
         <Link to={`/coins/${id}`}>
           <img src={image} alt="coin" />
           <h2>{name}</h2>
@@ -28,8 +28,8 @@ const Coin = ({
       ) : (
         <td className="green">{priceChange.toFixed(2)}%</td>
       )}
-      <td className="coin-row__hideMobile">${volume.toLocaleString()}</td>
-      <td className="coin-row__hideMobile">${market_cap.toLocaleString()}</td>
+      <td>${volume.toLocaleString()}</td>
+      <td>${market_cap.toLocaleString()}</td>
     </tr>
   );
 };

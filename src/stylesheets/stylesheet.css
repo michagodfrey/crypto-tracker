@@ -34,40 +34,12 @@ h1 {
 
 a, a:visited {
   color: white;
-  text-decoration: none;
 }
 
 main {
   display: flex;
   flex-direction: column;
   margin: 0;
-}
-
-header {
-  padding: 1.5rem;
-  background-color: #1c092d;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-decoration: underline;
-  color: gold;
-}
-
-header img {
-  height: 50px;
-  width: 50px;
-}
-
-header span {
-  color: gold;
-  cursor: pointer;
-}
-
-footer {
-  padding: 1.5rem;
-  display: flex;
-  justify-content: center;
-  text-decoration: underline;
 }
 
 hr {
@@ -89,6 +61,52 @@ hr {
 
 .green {
   color: lime;
+}
+
+.hide-mobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hide-mobile {
+      display: flex;
+    }
+}
+
+/* =================================================
+  header and footer
+==================================================== */
+
+header {
+  padding: 1.5rem;
+  background-color: #1c092d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: gold;
+}
+
+header img {
+  height: 50px;
+  width: 50px;
+  margin-right: .5rem;
+}
+
+header span {
+  color: gold;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.homepage-link {
+  display: flex;
+  align-items: center;
+}
+
+footer {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 /* =================================================
@@ -115,20 +133,33 @@ hr {
 }
 
 /* =================================================
-  banner
+  homepage banner
 ==================================================== */
-
 .banner {
+  background-image: url("../bg-image.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  display: flex;
+  flex-direction: column;
+}
+
+.banner a {
+  text-decoration: none;
+}
+
+.title {
   display: flex;
   align-items: center;
+  align-self: center;
   margin: 0 auto;
 }
 
-.banner span {
+.title span {
   text-align: center;
 }
 
-.banner img {
+.title img {
   height: 50px;
   width: 50px;
   margin: 0 1.5rem;
@@ -136,7 +167,7 @@ hr {
 }
 
 @media (min-width: 768px) {
-.banner img {
+.title img {
     display: flex;
   }
 }
@@ -144,6 +175,11 @@ hr {
 .carousel__box {
   display: flex;
   flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-bottom: .5rem;
+  width: 250px;
+  padding: 1rem 0;
+  border-radius: 50%;
 }
 
 .carousel__img {
@@ -165,7 +201,7 @@ hr {
 }
 
 /* =================================================
-  search
+  homepage search
 ==================================================== */
 
 form {
@@ -199,6 +235,7 @@ input {
 
 input:focus {
   outline: none;
+  border: 5px solid gold;
 }
 
 input::placeholder {
@@ -218,54 +255,47 @@ table {
   width: 100%;
 }
 
+th {
+  color: gold;
+}
+
 td {
   text-align: center;
 }
 
 /* =================================================
-  coin row
+  homepage coin row
 ==================================================== */
 
-.coin-row {
+.coin-row:hover td, .coin-row:hover h2,
+.coin-row:hover p {
+  color: gold;
+}
+
+.coin-row__coin {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  
 }
 
-.coin-row:hover {
-  opacity: .5;
-}
-
-.coin-row a {
+.coin-row__coin a {
   text-decoration: none;
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-.coin-row img {
+.coin-row__coin img {
   max-height: 25px;
   margin-right: 0.5rem;
 }
 
-.coin-row h2 {
+.coin-row__coin h2 {
   margin-right: 0.5rem;
 }
 
-/* .coin-row__hideMobile {
-  
-}
-
-@media (min-width: 768px) {
-  .coin-row__hideMobile {
-      
-
-    }
-} */
-
 /* =================================================
-  pagination
+  homepage pagination
 ==================================================== */
 
 .pagination-container {
@@ -304,8 +334,11 @@ td {
 }
 
 /* =================================================
-  coin page
+  coinpage image and main stats
 ==================================================== */
+.coin__flexItem1 {
+  flex: 1 1 30%;
+}
 
 .coin {
   display: flex;
@@ -316,14 +349,6 @@ td {
 
 .coin img {
   max-height: 150px;
-}
-
-.coin__flexItem1 {
-  flex: 1 1 30%;
-}
-
-.coin__flexItem2 {
-  flex: 1 1 70%;
 }
 
 .coin__container {
@@ -342,10 +367,43 @@ td {
 
 .coin__table {
   display: none;
+  margin-top: 1.5rem;
 }
 
-.coin__table th {
-  color: gold;
+@media (min-width: 768px) {
+
+  .coin img {
+    max-height: 250px;
+  }
+
+}
+
+@media (min-width: 1200px) {
+
+  .coin {
+    flex-direction: row;
+  }
+
+  .coin__flexItem1 {
+    border-right: 1px solid white;
+  }
+
+  .coin__table {
+    display: flex;
+  }
+
+}
+
+/* =================================================
+  coinpage chart section
+==================================================== */
+
+.coin__flexItem2 {
+  flex: 1 1 70%;
+}
+
+.coin__flexItem2 table {
+  margin-top: 1.5rem;
 }
 
 .coin__chart {
@@ -373,6 +431,36 @@ td {
   margin: .25rem;
   font-weight: bold;
 }
+
+@media (min-width: 768px) {
+    .coin__outer-container {
+        display: flex;
+      }
+    
+      .coin__container--stretch {
+        width: 33%
+      }
+}
+
+@media (min-width: 1200px) {
+
+  .coin__chart {
+    margin: 0 .5rem;
+    max-width: 70vw;
+  }
+
+  .coin__outer-container {
+    display: flex;
+  }
+
+  .coin__container--stretch {
+    justify-content: space-evenly;
+  }
+}
+
+/* =================================================
+  coinpage description
+==================================================== */
 
 .coin__description h3 {
   margin: 20px 0 0 1rem;
@@ -403,10 +491,6 @@ td {
 
 @media (min-width: 768px) {
 
-  .coin img {
-    max-height: 250px;
-  }
-
   .coin__description h3 {
     margin: 20px 0 0 1.5rem;
   }
@@ -419,31 +503,6 @@ td {
 }
 
 @media (min-width: 1024px) {
-
-  .coin {
-    flex-direction: row;
-  }
-  .coin__flexItem1 {
-    border-right: 1px solid white;
-  }
-
-  .coin__table {
-    display: flex;
-  }
-
-  .coin__chart {
-    margin: 0 .5rem;
-    max-width: 70vw;
-  }
-
-  .coin__outer-container {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .coin__container--stretch {
-    width: 50%
-  }
 
   .coin__description h3 {
     margin: 20px 0 0 2rem;

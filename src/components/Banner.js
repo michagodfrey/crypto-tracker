@@ -61,8 +61,8 @@ const Banner = () => {
   };
 
   return (
-    <>
-      <div className="banner">
+    <div className="banner">
+      <div className="title">
         <img src={moon} alt="moon" />
         <h1>To the Moon Crypto Tracker</h1>
         <img src={rocket} alt="rocket" />
@@ -81,7 +81,7 @@ const Banner = () => {
           responsive={responsive}
         />
       </div>
-    </>
+    </div>
   );
 };
 

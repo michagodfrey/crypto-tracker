@@ -92,8 +92,8 @@ const Homepage = () => {
                 <th>Coin</th>
                 <th>Price</th>
                 <th>% Change 24hr</th>
-                <th className="coin-row__hideMobile">Volume 24hr</th>
-                <th className="coin-row__hideMobile">Market Cap</th>
+                <th>Volume 24hr</th>
+                <th>Market Cap</th>
               </tr>
             </thead>
             <tbody>
@@ -116,7 +116,6 @@ const Homepage = () => {
             </tbody>
           </table>
         </div>
-
         <ReactPaginate
           previousLabel={<FaChevronLeft />}
           nextLabel={<FaChevronRight />}

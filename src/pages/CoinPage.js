@@ -105,11 +105,20 @@ const CoinPage = () => {
               ) : null}
             </div>
 
+            <div className="coin__container">
+              <p>Total Supply</p>
+              {coin.market_data?.total_supply ? (
+                <p>{coin.market_data.total_supply.toLocaleString()}</p>
+              ) : (
+                <p>N/A</p>
+              )}
+            </div>
+
             <div className="coin__table">
               <table>
                 <thead>
                   <tr>
-                    <th>ATH</th>
+                    <th>All Time High</th>
                     <th>ATH Date</th>
                     <th>% Change</th>
                   </tr>
@@ -151,7 +160,7 @@ const CoinPage = () => {
                 </tbody>
                 <thead>
                   <tr>
-                    <th>ATL</th>
+                    <th>All Time Low</th>
                     <th>ATL Date</th>
                     <th>% Change</th>
                   </tr>
@@ -197,31 +206,175 @@ const CoinPage = () => {
 
           <div className="coin__flexItem2">
             <CoinChart coin={coin} />
-
-            <div className="coin__container">
-              <h4>24 Hour Volume</h4>
-              {coin.market_data?.total_volume ? (
-                <p>${coin.market_data.total_volume.usd.toLocaleString()}</p>
-              ) : null}
-            </div>
             <div className="coin__outer-container">
               <div className="coin__container coin__container--stretch">
-                <h4>24 Hour High</h4>
+                <h4>24 Hour Volume:</h4>
+                {coin.market_data?.total_volume ? (
+                  <p>${coin.market_data.total_volume.usd.toLocaleString()}</p>
+                ) : null}
+              </div>
+
+              <div className="coin__container coin__container--stretch">
+                <h4>24 Hour High:</h4>
                 {coin.market_data?.high_24h ? (
                   <p className="green">${coin.market_data.high_24h.usd}</p>
                 ) : null}
               </div>
 
               <div className="coin__container coin__container--stretch">
-                <h4>24 Hour Low</h4>
+                <h4>24 Hour Low:</h4>
                 {coin.market_data?.low_24h ? (
                   <p className="red">${coin.market_data.low_24h.usd}</p>
                 ) : null}
               </div>
             </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>1h</th>
+                  <th>24h</th>
+                  <th>7d</th>
+                  <th>14d</th>
+                  <th>30d</th>
+                  <th>1yr</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    {coin.market_data
+                      ?.price_change_percentage_1h_in_currency.usd ? (
+                      coin.market_data.price_change_percentage_1h_in_currency
+                        .usd > 0 ? (
+                        <p className="green">
+                          {coin.market_data.price_change_percentage_1h_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      ) : (
+                        <p className="red">
+                          {coin.market_data.price_change_percentage_1h_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      )
+                    ) : null}
+                  </td>
+                  <td>
+                    {coin.market_data
+                      ?.price_change_percentage_24h_in_currency.usd ? (
+                      coin.market_data.price_change_percentage_24h_in_currency
+                        .usd > 0 ? (
+                        <p className="green">
+                          {coin.market_data.price_change_percentage_24h_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      ) : (
+                        <p className="red">
+                          {coin.market_data.price_change_percentage_24h_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      )
+                    ) : null}
+                  </td>
+                  <td>
+                    {coin.market_data
+                      ?.price_change_percentage_7d_in_currency.usd ? (
+                      coin.market_data.price_change_percentage_7d_in_currency
+                        .usd > 0 ? (
+                        <p className="green">
+                          {coin.market_data.price_change_percentage_7d_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      ) : (
+                        <p className="red">
+                          {coin.market_data.price_change_percentage_7d_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      )
+                    ) : null}
+                  </td>
+                  <td>
+                    {coin.market_data
+                      ?.price_change_percentage_14d_in_currency.usd ? (
+                      coin.market_data.price_change_percentage_14d_in_currency
+                        .usd > 0 ? (
+                        <p className="green">
+                          {coin.market_data.price_change_percentage_14d_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      ) : (
+                        <p className="red">
+                          {coin.market_data.price_change_percentage_14d_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      )
+                    ) : null}
+                  </td>
+                  <td>
+                    {coin.market_data
+                      ?.price_change_percentage_30d_in_currency.usd ? (
+                      coin.market_data.price_change_percentage_30d_in_currency
+                        .usd > 0 ? (
+                        <p className="green">
+                          {coin.market_data.price_change_percentage_30d_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      ) : (
+                        <p className="red">
+                          {coin.market_data.price_change_percentage_30d_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      )
+                    ) : null}
+                  </td>
+                  <td>
+                    {coin.market_data
+                      ?.price_change_percentage_1y_in_currency.usd ? (
+                      coin.market_data.price_change_percentage_1y_in_currency
+                        .usd > 0 ? (
+                        <p className="green">
+                          {coin.market_data.price_change_percentage_1y_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      ) : (
+                        <p className="red">
+                          {coin.market_data.price_change_percentage_1y_in_currency.usd.toFixed(
+                            1
+                          )}
+                          %
+                        </p>
+                      )
+                    ) : null}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
+
         <hr></hr>
+
         <div className="coin__description">
           <h3>Description:</h3>
           {readMore ? (
@@ -237,7 +390,7 @@ const CoinPage = () => {
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(
                   coin.description
-                    ? `${coin.description.en.substring(0, 200)}...`
+                    ? `${coin.description.en.substring(0, 250)}...`
                     : ""
                 ),
               }}

@@ -3,13 +3,18 @@ import { Link } from "react-router-dom";
 import rocket from "../rocket.png";
 
 const Header = () => {
+
+  const handleClick = () => {
+    alert("Sign up coming soon")
+  }
+
   return (
     <header>
-      <Link to="/">
-        {/* <span>To the Moon Crypto Tracker</span> */}
+      <Link className='homepage-link' to="/">
         <img src={rocket} alt="rocket" />
+        <span className='hide-mobile'>To the Moon Crypto Tracker</span>
       </Link>
-      <span>Login/Signup</span>
+      <span onClick={handleClick}>Login/Signup</span>
     </header>
   );
 }
