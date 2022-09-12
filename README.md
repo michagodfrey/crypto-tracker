@@ -25,7 +25,7 @@ To the Moon Crypto Tracker fetches data on the top 200 ranked cryptocurrencies a
 
 ### Links
 
-- Live site coming soon
+Live site coming soon
 
 ### Screenshots
 
@@ -63,7 +63,7 @@ Planned for hosting on Firebase.
 
 I got a lot out of builing this app and I am now more confident with React. It was my first practice of pagination, charts, carousel and sanitizing inner HTML with the help of npm packages.
 
-However the biggest takeaway was how to display data from complex datasets with nested objects. For example, the market_cap is an object containing currencies (keys) and prices (values) nested in the market_data object. I found that React would not display the market cap and other values on page refresh if the varible was entered directly into the JSX element. To get around this, ternary operators check if the data is in the object and only displays it if true.
+However the biggest takeaway was how to display data from complex datasets with nested objects. For example, the market_cap is an object containing currencies (keys) and prices (values) nested in the market_data object. I found that React would not display the market cap and other values on page refresh if the varible was entered directly into the JSX element without chaining operators (.?) and ternary operators to check if the data contains the object and ignores it if it doesn't.
 
 ```js
 
@@ -78,7 +78,7 @@ However the biggest takeaway was how to display data from complex datasets with 
 
 ### Useful resources
 
-I built this app myself from scratch and did not simply build a clone of a tutorial or other app. However, as I am learning React, I did view examples from multiple sources to workout how to make specific components.
+I always wanted to build a crypto price app using data and built this app myself from scratch. However, as I am learning React, used multiple sources to workout how to make specific components.
 
 #### Tutorials that helped
 
@@ -98,4 +98,4 @@ Moon image from [Stick PNG](http://www.stickpng.com/img/nature/moon/moon-clipart
 
 Rocket image from [Clipart World](https://clipart.world/rocket-clipart/rocket-clipart-transparent-background-7/)
 
-Space background image from [FreePik]("https://www.freepik.com/free-vector/cartoon-galaxy-background-with-planets_14121184.htm#query=space&position=18&from_view=keyword")
+Space background image from [FreePik](https://www.freepik.com/free-vector/cartoon-galaxy-background-with-planets_14121184.htm#query=space&position=18&from_view=keyword)
