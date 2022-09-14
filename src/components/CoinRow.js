@@ -28,8 +28,8 @@ const Coin = ({
       ) : (
         <td className="green">{priceChange.toFixed(2)}%</td>
       )}
-      <td>${volume.toLocaleString()}</td>
-      <td>${market_cap.toLocaleString()}</td>
+      <td className="hide-mobile">${volume.toLocaleString()}</td>
+      <td className="hide-mobile">${market_cap.toLocaleString()}</td>
     </tr>
   );
 };

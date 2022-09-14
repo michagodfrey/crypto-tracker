@@ -92,8 +92,8 @@ const Homepage = () => {
                 <th>Coin</th>
                 <th>Price</th>
                 <th>% Change 24hr</th>
-                <th>Volume 24hr</th>
-                <th>Market Cap</th>
+                <th className="hide-mobile">Volume 24hr</th>
+                <th className="hide-mobile">Market Cap</th>
               </tr>
             </thead>
             <tbody>
