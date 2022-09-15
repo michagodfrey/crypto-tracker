@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
  const openModal = () => {
    setIsModalOpen(true);
  };
+ 
  const closeModal = () => {
    setIsModalOpen(false);
  };
@@ -23,7 +24,6 @@ return (
     {children}
   </AppContext.Provider>
 );
-
 
 }
    
