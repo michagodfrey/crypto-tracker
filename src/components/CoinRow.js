@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 const Coin = ({
   id,
@@ -12,8 +13,23 @@ const Coin = ({
   rank,
   volume
 }) => {
+  const [favorite, setFavorite] = useState(false);
+
+  const toggleFavorite = () => {
+    setFavorite(!favorite);
+  }
+
   return (
     <tr className="coin-row">
+      {favorite ? (
+        <td className="coin-row__star" onClick={toggleFavorite}>
+          <FaStar />
+        </td>
+      ) : (
+        <td className="coin-row__star" onClick={toggleFavorite}>
+          <FaRegStar />
+        </td>
+      )}
       <td>{rank}</td>
       <td className="coin-row__coin">
         <Link to={`/coins/${id}`}>

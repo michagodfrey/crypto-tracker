@@ -130,6 +130,12 @@ header span {
   text-decoration: underline;
 }
 
+header button:hover {
+  background-color: gold;
+  color: black;
+  transition: all 0.3s linear;
+}
+
 .homepage-link {
   display: flex;
   align-items: center;
@@ -141,11 +147,10 @@ footer {
   justify-content: center;
 }
 
-/*
-=============== 
-Modal
-===============
-*/
+/* =================================================
+  modal
+==================================================== */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -163,16 +168,15 @@ Modal
 /* OPEN/CLOSE MODAL */
 .show-modal {
   visibility: visible;
-  z-index: 10;
+  z-index: 2;
 }
 
 .modal-container {
-  background: black;
-  color: red;
+  background: #777;
   border-radius: 0.25rem;
   width: 90vw;
-  height: 30vh;
-  max-width: 1170px;
+  height: 300px;
+  max-width: 650px;
   text-align: center;
   display: grid;
   place-items: center;
@@ -183,11 +187,13 @@ Modal
   position: absolute;
   top: 1rem;
   right: 1rem;
-  font-size: 2rem;
-  background: transparent;
-  border-color: transparent;
-  color: hsl(360, 67%, 44%);
+  padding-top: .75rem;
+  border: 2px solid gold;
   cursor: pointer;
+}
+
+.close-modal-btn svg {
+  fill: crimson;
 }
 
 /* =================================================
@@ -319,6 +325,11 @@ th {
   color: gold;
 }
 
+th svg {
+  fill: gold;
+  margin-top: .2rem;
+}
+
 td {
   text-align: center;
 }
@@ -330,6 +341,12 @@ td {
 .coin-row:hover td, .coin-row:hover h2,
 .coin-row:hover p {
   color: gold;
+}
+
+.coin-row__star svg {
+  margin-top: .2rem;
+  fill: gold;
+  cursor: pointer;
 }
 
 .coin-row__coin {
