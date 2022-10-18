@@ -1,31 +1,16 @@
 # To the Moon Crypto Tracker
 
-## Welcome! 👋
+This is a cryptocurrency price tracking app. It displays the price data for the top 200 cryptocurrencies as ranked by [CoinGecko](https://www.coingecko.com/).
 
-Thanks for checking out this repository.
+The data comes from [CoinGecko's public API](https://www.coingecko.com/en/api) and [Firebase](https://firebase.google.com/) hosts the web app.
 
-This is a cryptocurrency tracking app displaying price data for the top 200 cryptos as ranked by [CoinGecko](https://www.coingecko.com/).
+## Version 1
 
-## Contents
-
-- [Overview](#overview)
-  - [Links](#links)
-  - [Screenshots](#screenshots)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [Hosting](#hosting)
-  - [What I learned](#what-i-learned)
-  - [Useful resources](#useful-resources)
-
-## Overview
-
-My aim was to practice fetching third party data and displaying it using the React libray. The cryptocurrency website [CoinGecko](https://www.coingecko.com/) provides API with comprehensive data for free and without the need for a key with the basic plan.
-
-To the Moon Crypto Tracker fetches data on the top 200 ranked cryptocurrencies as ranked by CoinGecko and displays the name, rank, price etc on a home page with pagination as well as a page for each cryptocurrecny displaying more details including price chart.
+The homepage displays a list of cryptocurrencies starting with the largest market cap. The list shows rank, price and recent price changes. Each cryptocurrency page has more details including a historical price chart and description.
 
 ### Links
 
-Live site coming soon
+[Live site](https://mooncryptotracker.firebaseapp.com/)
 
 ### Screenshots
 
@@ -36,8 +21,6 @@ Homepage view
 CoinPage view
 
 ![coin page view](./screenshots/screenshot-coinpage.png)
-
-## My Process
 
 ### Built with
 
@@ -54,27 +37,6 @@ I used the React framework to build the frontend of this project. It has the fol
 - react-icons
 
 Styling was done with a custom CSS stylesheet and included the normalize stylesheet.
-
-### Hosting
-
-Planned for hosting on Firebase.
-
-### What I learned
-
-I got a lot out of builing this app and I am now more confident with React. It was my first practice of pagination, charts, carousel and sanitizing inner HTML with the help of npm packages.
-
-However the biggest takeaway was how to display data from complex datasets with nested objects. For example, the market_cap is an object containing currencies (keys) and prices (values) nested in the market_data object. I found that React would not display the market cap and other values on page refresh if the varible was entered directly into the JSX element without chaining operators (.?) and ternary operators to check if the data contains the object and ignores it if it doesn't.
-
-```js
-
-<div className="coin__container">
-    <p>Market Cap</p>
-    {coin.market_data?.market_cap ? (
-    <p>${coin.market_data.market_cap.usd.toLocaleString()}</p>
-    ) : null}
-</div>
-
-```
 
 ### Useful resources
 

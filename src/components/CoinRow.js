@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useGlobalContext } from "../context";
 import { Link } from "react-router-dom";
 import { FaStar, FaRegStar } from "react-icons/fa";
 
@@ -11,22 +12,33 @@ const Coin = ({
   image,
   priceChange,
   rank,
-  volume
+  volume,
+  favList,
+  handleFavorite,
 }) => {
-  const [favorite, setFavorite] = useState(false);
+  
+  // const { favorite } = useGlobalContext();
 
-  const toggleFavorite = () => {
-    setFavorite(!favorite);
-  }
+  // const [favorite, setFavorite] = useState(false);
+
+  // const [favList, setFavList] = useState([]);
+
+  //  const handleFavorite = (e) => {
+  //    setFavorite(!favorite);
+  //    console.log(e);
+  //    setFavList([...favList, e]);
+  //  };
+
+  //  console.log(favList)
 
   return (
     <tr className="coin-row">
-      {favorite ? (
-        <td className="coin-row__star" onClick={toggleFavorite}>
+      {favList.includes(id) ? (
+        <td className="coin-row__star" onClick={() => handleFavorite(id)}>
           <FaStar />
         </td>
       ) : (
-        <td className="coin-row__star" onClick={toggleFavorite}>
+        <td className="coin-row__star" onClick={() => handleFavorite(id)}>
           <FaRegStar />
         </td>
       )}

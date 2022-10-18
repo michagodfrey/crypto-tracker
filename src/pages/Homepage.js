@@ -12,10 +12,22 @@ const Homepage = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
   const [currentPage, setCurrentPage] = useState(0);
-  const coinsPerPage = 10;
-  const pages = currentPage * coinsPerPage;
+  const [favList, setFavList] = useState([]);
+
+    const handleFavorite = (id) => {
+      if (favList.includes(id)) {
+        setFavList(current => current.filter(element => {
+          return element !== id;
+        }));
+      } else {
+        setFavList([...favList, id]);
+      }
+    };
+
+    useEffect(() => {
+      console.log(favList);
+    }, [favList])
 
   useEffect(() => {
     setLoading(true);
@@ -36,14 +48,34 @@ const Homepage = () => {
       });
   }, []);
 
+  // search
+
   const handleChange = (e) => {
     setCurrentPage(0);
     setSearch(e.target.value);
   };
 
-  const filteredCoins = coins.filter((coin) =>
-    coin.name.toLowerCase().includes(search.toLowerCase())
+  const filteredCoins = () => {
+    return coins.filter((coin) =>
+      coin.name.toLowerCase().includes(search.toLowerCase()) || 
+      coin.symbol.toLowerCase().includes(search.toLowerCase())
     );
+  };
+
+  // show favorites
+
+  const toggleShowFavorites = (e) => {
+    console.log(e.target.value)
+  }
+
+  // pagination
+  const coinsPerPage = 10;
+  const pages = currentPage * coinsPerPage;
+  const pageCount = Math.ceil(coins.length / coinsPerPage);
+
+  const changePage = ({ selected }) => {
+    setCurrentPage(selected);
+  };
 
   if (loading) {
     return (
@@ -69,17 +101,15 @@ const Homepage = () => {
     );
   }
 
-  const pageCount = Math.ceil(coins.length / coinsPerPage);
-
-  const changePage = ({ selected }) => {
-    setCurrentPage(selected);
-  };
-
   return (
     <>
       <Header />
       <main>
         <Banner />
+        <div onChange={toggleShowFavorites}>
+          <input type="radio" value="Show all" name="hideShowFavs" />
+          <input type="radio" value="Show favorities" name="hideShowFavs" />
+        </div>
         <form>
           <i className="material-icons search-icon">search</i>
           <input type="text" onChange={handleChange} placeholder="Search..." />
@@ -98,7 +128,7 @@ const Homepage = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredCoins.slice(pages, pages + coinsPerPage).map((coin) => {
+              {filteredCoins().slice(pages, pages + coinsPerPage).map((coin) => {
                 return (
                   <CoinRow
                     key={coin.id}
@@ -111,6 +141,8 @@ const Homepage = () => {
                     priceChange={coin.price_change_percentage_24h}
                     rank={coin.market_cap_rank}
                     volume={coin.total_volume}
+                    favList={favList}
+                    handleFavorite={handleFavorite}
                   />
                 );
               })}

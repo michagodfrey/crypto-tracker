@@ -33,6 +33,7 @@ const CoinPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // while loading display loading animation
   if (loading) {
     return (
       <>
@@ -45,17 +46,18 @@ const CoinPage = () => {
     );
   }
 
-    if (error) {
-      return (
-        <>
-          <Header />
-          <main>
-            <div className="error">Error loading data.</div>
-          </main>
-          <Footer />
-        </>
-      );
-    }
+  // if error fetching data display error message
+  if (error) {
+    return (
+      <>
+        <Header />
+        <main>
+          <div className="error">Error loading data.</div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
