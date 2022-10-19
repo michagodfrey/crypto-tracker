@@ -14,20 +14,22 @@ const Homepage = () => {
   const [error, setError] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [favList, setFavList] = useState([]);
+  const [showFavorites, setShowFavorites] = useState(false);
 
-    const handleFavorite = (id) => {
-      if (favList.includes(id)) {
-        setFavList(current => current.filter(element => {
+  const handleFavorite = (id) => {
+
+    if (favList.includes(id)) {
+      console.log(`${id} removed from favorites!`)
+      setFavList((current) =>
+        current.filter((element) => {
           return element !== id;
-        }));
-      } else {
-        setFavList([...favList, id]);
-      }
-    };
-
-    useEffect(() => {
-      console.log(favList);
-    }, [favList])
+        })
+      );
+    } else {
+      console.log(`${id} added to favorites!`)
+      setFavList([...favList, id]);
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -49,24 +51,32 @@ const Homepage = () => {
   }, []);
 
   // search
-
   const handleChange = (e) => {
     setCurrentPage(0);
     setSearch(e.target.value);
   };
 
-  const filteredCoins = () => {
-    return coins.filter((coin) =>
-      coin.name.toLowerCase().includes(search.toLowerCase()) || 
-      coin.symbol.toLowerCase().includes(search.toLowerCase())
-    );
+  // filter favorites
+  function toggleShowFavorites() {
+    setCurrentPage(0);
+    if (favList.length < 1) {
+      console.log('favList empty')
+    }
+    setShowFavorites(!showFavorites);
   };
 
-  // show favorites
-
-  const toggleShowFavorites = (e) => {
-    console.log(e.target.value)
-  }
+  // display coins
+  const filteredCoins = () => {
+    if (showFavorites) {
+      return coins.filter((coin) => favList.includes(coin.id));
+    } else {
+      return coins.filter(
+        (coin) =>
+          coin.name.toLowerCase().includes(search.toLowerCase()) ||
+          coin.symbol.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+  };
 
   // pagination
   const coinsPerPage = 10;
@@ -77,6 +87,7 @@ const Homepage = () => {
     setCurrentPage(selected);
   };
 
+  // loading and error displays
   if (loading) {
     return (
       <>
@@ -106,19 +117,40 @@ const Homepage = () => {
       <Header />
       <main>
         <Banner />
-        <div onChange={toggleShowFavorites}>
-          <input type="radio" value="Show all" name="hideShowFavs" />
-          <input type="radio" value="Show favorities" name="hideShowFavs" />
-        </div>
-        <form>
+
+        <div className="search">
+          <label for="search" className="search__label">
+            search cryptocurrencies
+          </label>
           <i className="material-icons search-icon">search</i>
-          <input type="text" onChange={handleChange} placeholder="Search..." />
-        </form>
+          <input
+            id="search"
+            className="search__input"
+            type="text"
+            onChange={handleChange}
+            placeholder="Search..."
+          />
+        </div>
+
+        <div className="favorites">
+          <div className="switch">
+            <input
+              id="showFavs"
+              type="checkbox"
+              onChange={toggleShowFavorites}
+            />
+            <span className="slider round"></span>
+          </div>
+          <label for="showFavs">Show Favorites</label>
+        </div>
+
         <div className="table-container">
           <table>
             <thead>
               <tr>
-                <th><FaStar /></th>
+                <th>
+                  <FaStar />
+                </th>
                 <th>#</th>
                 <th>Coin</th>
                 <th>Price</th>
@@ -128,24 +160,26 @@ const Homepage = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredCoins().slice(pages, pages + coinsPerPage).map((coin) => {
-                return (
-                  <CoinRow
-                    key={coin.id}
-                    id={coin.id}
-                    name={coin.name}
-                    price={coin.current_price}
-                    symbol={coin.symbol}
-                    market_cap={coin.market_cap}
-                    image={coin.image}
-                    priceChange={coin.price_change_percentage_24h}
-                    rank={coin.market_cap_rank}
-                    volume={coin.total_volume}
-                    favList={favList}
-                    handleFavorite={handleFavorite}
-                  />
-                );
-              })}
+              {filteredCoins()
+                .slice(pages, pages + coinsPerPage)
+                .map((coin) => {
+                  return (
+                    <CoinRow
+                      key={coin.id}
+                      id={coin.id}
+                      name={coin.name}
+                      price={coin.current_price}
+                      symbol={coin.symbol}
+                      market_cap={coin.market_cap}
+                      image={coin.image}
+                      priceChange={coin.price_change_percentage_24h}
+                      rank={coin.market_cap_rank}
+                      volume={coin.total_volume}
+                      favList={favList}
+                      handleFavorite={handleFavorite}
+                    />
+                  );
+                })}
             </tbody>
           </table>
         </div>

@@ -4,7 +4,6 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
  const [isModalOpen, setIsModalOpen] = useState(false);
- const [favorite, setFavorite] = useState(false);
 
  const openModal = () => {
    setIsModalOpen(true);
@@ -14,19 +13,12 @@ const AppProvider = ({ children }) => {
    setIsModalOpen(false);
  };
 
- const toggleFavorite = () => {
-   setFavorite(!favorite);
- };
-
 return (
   <AppContext.Provider
     value={{
       isModalOpen,
       openModal,
       closeModal,
-      favorite,
-      setFavorite,
-      toggleFavorite,
     }}
   >
     {children}

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useGlobalContext } from "../context";
+import React from "react";
 import { Link } from "react-router-dom";
 import { FaStar, FaRegStar } from "react-icons/fa";
 
@@ -16,21 +15,6 @@ const Coin = ({
   favList,
   handleFavorite,
 }) => {
-  
-  // const { favorite } = useGlobalContext();
-
-  // const [favorite, setFavorite] = useState(false);
-
-  // const [favList, setFavList] = useState([]);
-
-  //  const handleFavorite = (e) => {
-  //    setFavorite(!favorite);
-  //    console.log(e);
-  //    setFavList([...favList, e]);
-  //  };
-
-  //  console.log(favList)
-
   return (
     <tr className="coin-row">
       {favList.includes(id) ? (
