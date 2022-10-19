@@ -267,7 +267,7 @@ footer {
 }
 
 /* =================================================
-  homepage search and favorites filter
+  homepage search 
 ==================================================== */
 
 .search {
@@ -318,27 +318,29 @@ footer {
 
 .favorites {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  max-width: 205px;
-  margin: 0 0 1rem 1rem;
-
+  margin: 0 0 1rem 0.25rem;
 }
 
-.switch {
+.favorites__switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 34px;
+  margin-right: .5rem;
 }
 
-.switch input {
+.favorites__switch input {
   opacity: 0;
-  width: 0;
-  height: 0;
+  transform: scale(5);
+  position: relative;
+  left: 1rem;
+  z-index: 5;
+  cursor: pointer;
 }
 
-.slider {
+.favorites__slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -351,7 +353,7 @@ footer {
   transition: .4s;
 }
 
-.slider:before {
+.favorites__slider:before {
   position: absolute;
   content: "";
   height: 26px;
@@ -364,16 +366,32 @@ footer {
   transition: .4s;
 }
 
-input:checked+ .slider {
+input:checked+ .favorites__slider {
   background-color: blueviolet;
 }
 
-input:checked+.slider:before {
+input:checked+.favorites__slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
   background-color: gold;
 }
+
+.favorites__label {
+  cursor: pointer;
+  text-decoration: underline;
+  margin-right: .5rem;
+}
+
+/* =================================================
+  favorites alert
+==================================================== */
+
+.favorites__alert {
+  color: gold;
+}
+
+/* todo: add animation effect */
 
 /* =================================================
   homepage table
@@ -480,6 +498,7 @@ td {
 /* =================================================
   coinpage image and main stats
 ==================================================== */
+
 .coin__flexItem1 {
   flex: 1 1 30%;
 }

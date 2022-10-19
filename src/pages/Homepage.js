@@ -16,21 +16,6 @@ const Homepage = () => {
   const [favList, setFavList] = useState([]);
   const [showFavorites, setShowFavorites] = useState(false);
 
-  const handleFavorite = (id) => {
-
-    if (favList.includes(id)) {
-      console.log(`${id} removed from favorites!`)
-      setFavList((current) =>
-        current.filter((element) => {
-          return element !== id;
-        })
-      );
-    } else {
-      console.log(`${id} added to favorites!`)
-      setFavList([...favList, id]);
-    }
-  };
-
   useEffect(() => {
     setLoading(true);
     setError(false);
@@ -56,12 +41,28 @@ const Homepage = () => {
     setSearch(e.target.value);
   };
 
+  // add and remove favorites
+  const handleFavorite = (id) => {
+    if (favList.includes(id)) {
+      document.querySelector(
+        ".favorites__alert"
+      ).innerHTML = `${id} removed from favorites!`;
+      setFavList((current) =>
+        current.filter((element) => {
+          return element !== id;
+        })
+      );
+    } else {
+      document.querySelector(
+        ".favorites__alert"
+      ).innerHTML = `${id} added to favorites!`;
+      setFavList([...favList, id]);
+    }
+  };
+
   // filter favorites
   function toggleShowFavorites() {
     setCurrentPage(0);
-    if (favList.length < 1) {
-      console.log('favList empty')
-    }
     setShowFavorites(!showFavorites);
   };
 
@@ -119,8 +120,8 @@ const Homepage = () => {
         <Banner />
 
         <div className="search">
-          <label for="search" className="search__label">
-            search cryptocurrencies
+          <label htmlFor="search" className="search__label">
+            Search top 250 cryptocurrencies
           </label>
           <i className="material-icons search-icon">search</i>
           <input
@@ -133,15 +134,18 @@ const Homepage = () => {
         </div>
 
         <div className="favorites">
-          <div className="switch">
+          <div className="favorites__switch">
             <input
               id="showFavs"
               type="checkbox"
               onChange={toggleShowFavorites}
             />
-            <span className="slider round"></span>
+            <span className="favorites__slider"></span>
           </div>
-          <label for="showFavs">Show Favorites</label>
+          <label className="favorites__label" htmlFor="showFavs">
+            Show Favorites
+          </label>
+          <div className="favorites__alert"></div>
         </div>
 
         <div className="table-container">
