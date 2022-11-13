@@ -44,6 +44,8 @@ const Homepage = () => {
   // add and remove favorites
   const handleFavorite = (id) => {
     if (favList.includes(id)) {
+
+      
       document.querySelector(
         ".favorites__alert"
       ).innerHTML = `${id} removed from favorites!`;
@@ -52,6 +54,8 @@ const Homepage = () => {
           return element !== id;
         })
       );
+
+
     } else {
       document.querySelector(
         ".favorites__alert"

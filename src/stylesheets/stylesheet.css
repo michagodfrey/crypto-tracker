@@ -165,7 +165,7 @@ footer {
   z-index: -1;
 }
 
-/* OPEN/CLOSE MODAL */
+/* open/close modal */
 .show-modal {
   visibility: visible;
   z-index: 2;
@@ -211,6 +211,16 @@ footer {
 
 .banner a {
   text-decoration: none;
+}
+
+.banner__attribution, .banner__attribution a {
+  font-size: .6rem;
+  align-self: flex-end;
+  margin-right: .25rem;
+}
+
+.banner__attribution a {
+  color: gold;
 }
 
 .title {
@@ -379,19 +389,13 @@ input:checked+.favorites__slider:before {
 
 .favorites__label {
   cursor: pointer;
-  text-decoration: underline;
   margin-right: .5rem;
 }
 
-/* =================================================
-  favorites alert
-==================================================== */
-
 .favorites__alert {
   color: gold;
+  transition: all .2 ease-in;
 }
-
-/* todo: add animation effect */
 
 /* =================================================
   homepage table

@@ -1,8 +1,8 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moon from "../clipart/moon.png";
 import rocket from "../clipart/rocket.png";
-import AliceCarousel from 'react-alice-carousel';
+import AliceCarousel from "react-alice-carousel";
 import { Link } from "react-router-dom";
 
 const Banner = () => {
@@ -67,7 +67,6 @@ const Banner = () => {
         <h1>To the Moon Crypto Tracker</h1>
         <img src={rocket} alt="rocket" />
       </div>
-
       <div className="carousel">
         <AliceCarousel
           mouseTracking
@@ -81,8 +80,14 @@ const Banner = () => {
           responsive={responsive}
         />
       </div>
+      <span className="banner__attribution">
+        Background image from{" "}
+        <a href="https://www.freepik.com/free-vector/cartoon-galaxy-background-with-planets_14121184.htm#query=space&position=18&from_view=keyword">
+          FreePik
+        </a>
+      </span>
     </div>
   );
 };
 
-export default Banner
+export default Banner;
