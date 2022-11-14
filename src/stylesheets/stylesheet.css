@@ -393,8 +393,19 @@ input:checked+.favorites__slider:before {
 }
 
 .favorites__alert {
-  color: gold;
-  transition: all .2 ease-in;
+  font-weight: 600;
+  padding: .25rem;
+  border-radius: 10px;
+}
+
+.favorites__alert--add {
+  color: #004d00;
+  background-color: #80ff80;
+}
+
+.favorites__alert--remove {
+  color: #800000;
+  background-color: #ff8080;
 }
 
 /* =================================================
@@ -654,7 +665,6 @@ td {
   margin: 0 auto;
   cursor: pointer;
 }
-
 
 @media (min-width: 768px) {
 

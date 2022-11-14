@@ -4,6 +4,7 @@ import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight, FaStar } from "react-icons/fa";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
+import Alert from "../components/Alert";
 import CoinRow from "../components/CoinRow";
 import Footer from "../components/Footer";
 
@@ -15,6 +16,7 @@ const Homepage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [favList, setFavList] = useState([]);
   const [showFavorites, setShowFavorites] = useState(false);
+  const [alert, setAlert] = useState({ show: false, type: '', msg: ''});
 
   useEffect(() => {
     setLoading(true);
@@ -41,25 +43,22 @@ const Homepage = () => {
     setSearch(e.target.value);
   };
 
+  // alert message for adding/removing favorites
+  const showAlert = (show = false, type = "", msg = "") => {
+    setAlert({ show, type, msg });
+  };
+
   // add and remove favorites
   const handleFavorite = (id) => {
     if (favList.includes(id)) {
-
-      
-      document.querySelector(
-        ".favorites__alert"
-      ).innerHTML = `${id} removed from favorites!`;
+      showAlert(true, "remove", `${id} removed from favorites!`);
       setFavList((current) =>
         current.filter((element) => {
           return element !== id;
         })
       );
-
-
     } else {
-      document.querySelector(
-        ".favorites__alert"
-      ).innerHTML = `${id} added to favorites!`;
+      showAlert(true, "add", `${id} added to favorites!`);
       setFavList([...favList, id]);
     }
   };
@@ -147,9 +146,9 @@ const Homepage = () => {
             <span className="favorites__slider"></span>
           </div>
           <label className="favorites__label" htmlFor="showFavs">
-            Show Favorites
+            {showFavorites ? `Show All` : `Show Favorites`}
           </label>
-          <div className="favorites__alert"></div>
+            {alert.show && <Alert {...alert} showAlert={showAlert} />}
         </div>
 
         <div className="table-container">
