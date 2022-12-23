@@ -36,12 +36,12 @@ const Coin = ({
       </td>
       {price > 1000 ? <td>${price.toLocaleString()}</td> : <td>${price}</td>}
       {priceChange < 0 ? (
-        <td className="red">{priceChange.toFixed(2)}%</td>
+        <td className="red">{priceChange?.toFixed(2)}%</td>
       ) : (
-        <td className="green">{priceChange.toFixed(2)}%</td>
+        <td className="green">{priceChange?.toFixed(2)}%</td>
       )}
-      <td className="hide-mobile">${volume.toLocaleString()}</td>
-      <td className="hide-mobile">${market_cap.toLocaleString()}</td>
+      <td className="hide-mobile">${volume?.toLocaleString()}</td>
+      <td className="hide-mobile">${market_cap?.toLocaleString()}</td>
     </tr>
   );
 };

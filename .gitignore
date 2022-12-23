@@ -46,4 +46,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # mine
-README-first-deploy.md
+firebase-config.js

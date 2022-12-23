@@ -18,6 +18,8 @@ const Homepage = () => {
   const [showFavorites, setShowFavorites] = useState(false);
   const [alert, setAlert] = useState({ show: false, type: '', msg: ''});
 
+  // add favorites to array in user doc, get favorites from user doc rather than local storage
+
   useEffect(() => {
     setLoading(true);
     setError(false);

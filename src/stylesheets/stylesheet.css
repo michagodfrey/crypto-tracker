@@ -118,6 +118,10 @@ header {
   color: gold;
 }
 
+header input {
+  color: black;
+}
+
 header img {
   height: 50px;
   width: 50px;
@@ -181,6 +185,10 @@ footer {
   display: grid;
   place-items: center;
   position: relative;
+}
+
+.modal-container input {
+  color: black;
 }
 
 .close-modal-btn {
@@ -248,13 +256,19 @@ footer {
 }
 
 .carousel__box {
-  display: flex;
+  display: none;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.2);
   margin: 0 auto .5rem auto;
   width: 250px;
   padding: 1rem 0;
   border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+  .carousel__box {
+    display: flex;
+  }
 }
 
 .carousel__img {
