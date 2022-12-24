@@ -1,42 +1,17 @@
 import React, { useState } from 'react';
-import { useGlobalContext } from "../context";
-import { FaTimes } from "react-icons/fa";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { Link } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, signInWithGoogle } from "../firebase-config";
+import { FaTimes } from "react-icons/fa";
 
-const Modal = () => {
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
+const Modal = ({ isModalOpen, closeModal }) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-
-  const { isModalOpen, closeModal } = useGlobalContext();
-
-  const register = async () => {
-    try {
-      await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
-        // create new document in users collection that takes the auth uid as the doc id
-
-      // await addDoc(colRef, { email: registerEmail });
-      // db.collection('users').doc()
-      closeModal();
-    } catch (error) {
-      console.log(error.message);
-      closeModal();
-    }
-  };
 
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-      closeModal()
+      closeModal();
     } catch (error) {
       console.log(error.message);
       closeModal();
@@ -50,27 +25,18 @@ const Modal = () => {
       }`}
     >
       <div className="modal-container">
-        <button className="close-modal-btn" onClick={closeModal}>
-          <FaTimes></FaTimes>
-        </button>
-        <div>
-          <p>Register</p>
-          <input
-            type="email"
-            placeholder="email"
-            onChange={(event) => {
-              setRegisterEmail(event.target.value);
-            }}
-          />
-          <input
-            type="password"
-            placeholder="password"
-            onChange={(event) => {
-              setRegisterPassword(event.target.value);
-            }}
-          />
-          <button onClick={register}>Sign up</button>
-          <p>Sign in</p>
+        <div className="modal-container__title">
+          <div>
+            <h2>Sign in</h2>
+          </div>
+          <div>
+            <button onClick={closeModal}>
+              <FaTimes></FaTimes>
+            </button>
+          </div>
+        </div>
+
+        <form>
           <input
             type="email"
             placeholder="email"
@@ -85,12 +51,18 @@ const Modal = () => {
               setLoginPassword(event.target.value);
             }}
           />
-          <button onClick={login}>Login</button>
-        </div>
-        <button onClick={signInWithGoogle}>Sign in with Google</button>
+        </form>
+        <button className='modal-container__login' onClick={login}>Login</button>
+        <p>
+          Don't have an account?{" "}
+          <Link to={"/signup"} onClick={closeModal}>
+            Sign up with email here
+          </Link>
+        </p>
+        {/* <button onClick={signInWithGoogle}>Sign in with Google</button> */}
       </div>
     </div>
   );
-}
+};
 
 export default Modal

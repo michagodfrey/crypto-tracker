@@ -131,7 +131,6 @@ const Homepage = () => {
           <i className="material-icons search-icon">search</i>
           <input
             id="search"
-            className="search__input"
             type="text"
             onChange={handleChange}
             placeholder="Search..."

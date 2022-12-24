@@ -2,15 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase-config";
-import { useGlobalContext } from '../context';
 import rocket from "../clipart/rocket.png";
 import Modal from './Modal';
 
 const Header = () => {
-  const [user, setUser] = useState({});
+  const [ user, setUser ] = useState({});
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
 
-  const { openModal } = useGlobalContext();
-  
+ const openModal = () => {
+   setIsModalOpen(true);
+ };
+ 
+ const closeModal = () => {
+   setIsModalOpen(false);
+ };
+
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -41,7 +47,7 @@ const Header = () => {
           <button onClick={openModal}>Login/Signup</button>
         )}
       </div>
-      <Modal />
+      <Modal isModalOpen={isModalOpen} closeModal={closeModal} />
     </header>
   );
 }
