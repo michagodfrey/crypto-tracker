@@ -13,7 +13,12 @@ const Modal = ({ isModalOpen, closeModal }) => {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       closeModal();
     } catch (error) {
-      console.log(error.message);
+      alert(error.message)
+      // switch(error.code) {
+      //   case "auth/user-not-found":
+      //     alert(`Sorry, ${loginEmail} was not in our database`)
+      //     break;
+      // }
       closeModal();
     }
   };

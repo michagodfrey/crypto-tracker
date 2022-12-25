@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
-import { FaChevronLeft, FaChevronRight, FaStar } from "react-icons/fa";
+import { FaSearch, FaChevronLeft, FaChevronRight, FaStar } from "react-icons/fa";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
 import Alert from "../components/Alert";
@@ -85,7 +85,7 @@ const Homepage = () => {
   };
 
   // pagination
-  const coinsPerPage = 10;
+  const coinsPerPage = 20;
   const pages = currentPage * coinsPerPage;
   const pageCount = Math.ceil(coins.length / coinsPerPage);
 
@@ -128,7 +128,7 @@ const Homepage = () => {
           <label htmlFor="search" className="search__label">
             Search top 250 cryptocurrencies
           </label>
-          <i className="material-icons search-icon">search</i>
+          <FaSearch className="search-icon" />
           <input
             id="search"
             type="text"
@@ -149,7 +149,7 @@ const Homepage = () => {
           <label className="favorites__label" htmlFor="showFavs">
             {showFavorites ? `Show All` : `Show Favorites`}
           </label>
-            {alert.show && <Alert {...alert} showAlert={showAlert} />}
+          {alert.show && <Alert {...alert} showAlert={showAlert} />}
         </div>
 
         <div className="table-container">

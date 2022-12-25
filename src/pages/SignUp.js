@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { doc, setDoc } from "@firebase/firestore";
+import { auth, db } from "../firebase-config";
 import Header from '../components/Header';
 import Banner from "../components/Banner";
 import Footer from '../components/Footer';
@@ -10,41 +11,41 @@ const SignUp = () => {
     const [ registerName, setRegisterName ] = useState("");
     const [ registerEmail, setRegisterEmail ] = useState("");
     const [ registerPassword, setRegisterPassword ] = useState("");
-    const [ currentEmail, setCurrentEmail ] = useState("");
 
     const navigate = useNavigate();
 
-    function isEmailValid(email) {
-        return /\S+@\S+\.\S+/.test(email);
-    }
-
-    function userExists(email) {
-        // query users collection for email and assign 
-        console.log(email)
-    }
-
-    const register = async () => {
-        if (!isEmailValid(registerEmail) || registerPassword.length < 6) {
-          alert("Must use valid email with password of at least 6 characters");
-        } else if (userExists(registerEmail)) {
-            // a user with that name already exists, reset password link
-        } else {
-          try {
-            await createUserWithEmailAndPassword(
-              auth,
-              registerEmail,
-              registerPassword
-            );
-            // create new document in users collection that takes the auth uid as the doc id
-
-            // await addDoc(colRef, { email: registerEmail });
-            // db.collection('users').doc()
+    const register = () => {
+        createUserWithEmailAndPassword(
+            auth,
+            registerEmail,
+            registerPassword
+          )
+          .then(async (result) => {
+            const ref = doc(db, "users", result.user.uid);
+            await setDoc(ref, { email: registerEmail, name: registerName })
+          })
+          .then(() => {
             navigate("/");
-          } catch (error) {
-            console.log(error.message);
-            // error message
-          }
-        }
+          })
+          .catch((error) => {
+            switch (error.code) {
+                case "auth/invalid-email":
+                    alert(`Sorry, ${registerEmail} is not a valid email`);
+                    break;
+                case "auth/weak-password":
+                    alert("Password must be at least 6 characters");
+                    break;
+                case "auth/email-already-in-use":
+                    alert(`${registerEmail} is already in use`);
+                    break;
+                case "auth/operation-not-allowed":
+                    alert("Sorry, error during sign up");
+                    break;
+                default:
+                    alert(error.message);
+                    break;
+            }
+          })
     };
 
   return (

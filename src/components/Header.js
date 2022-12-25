@@ -28,8 +28,6 @@ const Header = () => {
     console.log("signed out");
   };
 
-  // display more user data
-
   return (
     <header>
       <Link className="homepage-link" to="/">
@@ -40,7 +38,7 @@ const Header = () => {
       <div>
         {user ? (
           <>
-            <span>{user.email}</span>
+            <span>{ user.name ? user.name : user.email }</span>
             <button onClick={logout}>Sign out</button>
           </>
         ) : (
