@@ -1,31 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { doc, getDoc } from "@firebase/firestore";
+import { db, auth } from "../firebase-config";
 import rocket from "../clipart/rocket.png";
 import Modal from './Modal';
 
 const Header = () => {
   const [ user, setUser ] = useState({});
+  const [ userDetails, setUserDetails ] = useState({});
   const [ isModalOpen, setIsModalOpen ] = useState(false);
-
- const openModal = () => {
-   setIsModalOpen(true);
- };
- 
- const closeModal = () => {
-   setIsModalOpen(false);
- };
+  
+  // make id = id of user
+  // const userDoc = doc(db, "users", user.uid);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
+      
+
+
       setUser(currentUser);
     });
   }, []);
 
+  // getDoc(userDoc)
+  //   .then((doc) => {
+  //     // console.log(doc.data(), doc.id);
+  //     const details = doc.data()
+  //     setUserDetails(details)
+  //     // console.log(details.email)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err.message);
+  //   });
+
+  console.log(user.uid)
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.getElementById("modalEmail").value = "";
+    document.getElementById("modalPassword").value = "";
+    document.getElementById("modalErrorMsg").innerHTML = "";
+  };
+
   const logout = async () => {
     await signOut(auth);
-    console.log("signed out");
   };
 
   return (
@@ -38,7 +61,8 @@ const Header = () => {
       <div>
         {user ? (
           <>
-            <span>{ user.name ? user.name : user.email }</span>
+            <span>{user.image ? user.image : null }</span>
+            <span>{user.name ? user.name : user.email }</span>
             <button onClick={logout}>Sign out</button>
           </>
         ) : (

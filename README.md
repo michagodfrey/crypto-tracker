@@ -4,9 +4,13 @@ This is a cryptocurrency price tracking app. It displays the price data for the 
 
 The data comes from [CoinGecko's public API](https://www.coingecko.com/en/api) and [Firebase](https://firebase.google.com/) hosts the web app.
 
-## Version 1
+## Front-end
 
-The homepage displays a list of cryptocurrencies starting with the largest market cap. The list shows rank, price and recent price changes. Each cryptocurrency page has more details including a historical price chart and description.
+The homepage displays a list of 200 cryptocurrencies starting with the largest market cap. The list shows rank, price and recent price changes. Each cryptocurrency page has more details including a historical price chart and description.
+
+## Back-end
+
+Users can sign in with email or Google using services offered by [Firebase](https://firebase.google.com/).
 
 ### Links
 
@@ -61,3 +65,7 @@ Moon image from [Stick PNG](http://www.stickpng.com/img/nature/moon/moon-clipart
 Rocket image from [Clipart World](https://clipart.world/rocket-clipart/rocket-clipart-transparent-background-7/)
 
 Space background image from [FreePik](https://www.freepik.com/free-vector/cartoon-galaxy-background-with-planets_14121184.htm#query=space&position=18&from_view=keyword)
+
+#### Code
+
+The Google sign in button style was done by [Mirko Akov](https://codepen.io/mupkoo/pen/YgddgB)

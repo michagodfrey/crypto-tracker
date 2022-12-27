@@ -91,6 +91,7 @@ const Homepage = () => {
 
   const changePage = ({ selected }) => {
     setCurrentPage(selected);
+    document.documentElement.scrollTop = 300;
   };
 
   // loading and error displays
@@ -162,7 +163,7 @@ const Homepage = () => {
                 <th>#</th>
                 <th>Coin</th>
                 <th>Price</th>
-                <th>% Change 24hr</th>
+                <th className="hide-mobile">% Change 24hr</th>
                 <th className="hide-mobile">Volume 24hr</th>
                 <th className="hide-mobile">Market Cap</th>
               </tr>

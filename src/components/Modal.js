@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, signInWithGoogle } from "../firebase-config";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { db, auth, provider } from "../firebase-config";
+import { doc, setDoc } from "@firebase/firestore";
 import { FaTimes } from "react-icons/fa";
 
 const Modal = ({ isModalOpen, closeModal }) => {
@@ -13,14 +14,30 @@ const Modal = ({ isModalOpen, closeModal }) => {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       closeModal();
     } catch (error) {
-      alert(error.message)
-      // switch(error.code) {
-      //   case "auth/user-not-found":
-      //     alert(`Sorry, ${loginEmail} was not in our database`)
-      //     break;
-      // }
-      closeModal();
+      document.getElementById("modalErrorMsg").innerHTML = `${error.message}`;
     }
+  };
+
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then(async (res) => {
+        const registerName = res.user.displayName;
+        const registerEmail = res.user.email;
+        const registerImage = res.user.photoURL;
+
+        // localStorage.setItem("userName", userName);
+        // localStorage.setItem("userEmail", userEmail);
+        // localStorage.setItem("userImg", userImg);
+
+        const ref = doc(db, "users", res.user.uid);
+        await setDoc(ref, { email: registerEmail, name: registerName, image: registerImage });
+      })
+      .then(() => {
+        closeModal();
+      })
+      .catch((error) => {
+        document.getElementById("modalErrorMsg").innerHTML = `${error.message}`;
+      });
   };
 
   return (
@@ -43,28 +60,46 @@ const Modal = ({ isModalOpen, closeModal }) => {
 
         <form>
           <input
+            id="modalEmail"
             type="email"
+            autoComplete="email"
             placeholder="email"
             onChange={(event) => {
               setLoginEmail(event.target.value);
             }}
           />
           <input
+            id="modalPassword"
             type="password"
+            autoComplete="current-password"
             placeholder="password"
             onChange={(event) => {
               setLoginPassword(event.target.value);
             }}
           />
         </form>
-        <button className='modal-container__login' onClick={login}>Login</button>
+
+        <button className="modal-container__login" onClick={login}>
+          Login
+        </button>
+        <p id="modalErrorMsg"></p>
+        <p>
+          <button className="login-with-google-btn" onClick={signInWithGoogle}>
+            Sign in with Google
+          </button>
+        </p>
         <p>
           Don't have an account?{" "}
           <Link to={"/signup"} onClick={closeModal}>
             Sign up with email here
           </Link>
         </p>
-        {/* <button onClick={signInWithGoogle}>Sign in with Google</button> */}
+        <p>
+          Forgot your password?{" "}
+          <Link to={"/reset"} onClick={closeModal}>
+            Reset it here
+          </Link>
+        </p>
       </div>
     </div>
   );
