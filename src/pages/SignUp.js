@@ -22,7 +22,9 @@ const SignUp = () => {
         )
         .then(async (res) => {
         const ref = doc(db, "users", res.user.uid);
-        await setDoc(ref, { email: registerEmail, name: registerName })
+        await setDoc(ref, { email: registerEmail, name: registerName, favorites: [] });
+        localStorage.setItem("userName", registerName);
+        localStorage.setItem("userEmail", registerEmail);
         })
         .then(() => {
         navigate("/");

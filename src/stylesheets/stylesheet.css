@@ -138,6 +138,11 @@ header {
   color: gold;
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
 header img {
   height: 50px;
   width: 50px;

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { db, auth, provider } from "../firebase-config";
+import { db, auth, googleProvider } from "../firebase-config";
 import { doc, setDoc } from "@firebase/firestore";
 import { FaTimes } from "react-icons/fa";
 
-const Modal = ({ isModalOpen, closeModal }) => {
+const Modal = ({ isModalOpen, closeModal, userId }) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -19,18 +19,14 @@ const Modal = ({ isModalOpen, closeModal }) => {
   };
 
   const signInWithGoogle = () => {
-    signInWithPopup(auth, provider)
+    signInWithPopup(auth, googleProvider)
       .then(async (res) => {
         const registerName = res.user.displayName;
         const registerEmail = res.user.email;
         const registerImage = res.user.photoURL;
 
-        // localStorage.setItem("userName", userName);
-        // localStorage.setItem("userEmail", userEmail);
-        // localStorage.setItem("userImg", userImg);
-
         const ref = doc(db, "users", res.user.uid);
-        await setDoc(ref, { email: registerEmail, name: registerName, image: registerImage });
+        await setDoc(ref, { email: registerEmail, name: registerName, image: registerImage, favorites: [] });
       })
       .then(() => {
         closeModal();

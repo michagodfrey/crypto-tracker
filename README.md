@@ -58,6 +58,8 @@ To make the pagination component I followed this tutorial by [PedroTech](https:/
 
 The examples Chart-js 2 at [Educative](<https://www.educative.io/answers/how-to-use-chartjs-to-create-charts-in-react>) helped me figure out to to display a chart in this app.
 
+Firebase Auth and Firestore functions were created with help from tutorials by [The Net Ninja](https://www.youtube.com/watch?v=aN1LnNq4z54&list=PL4cUxeGkcC9jUPIes_B8vRjn1_GaplOPQ&index=2) and Google authentication by [PedroTech](https://www.youtube.com/watch?v=vDT7EnUpEoo&list=RDCMUC8S4rDRZn6Z_StJ-hh7ph8g&index=3) and email authentication also by [PedroTech](https://www.youtube.com/watch?v=9bXhf_TELP4&list=RDCMUC8S4rDRZn6Z_StJ-hh7ph8g)
+
 #### Images
 
 Moon image from [Stick PNG](http://www.stickpng.com/img/nature/moon/moon-clipart)

@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import { FaSearch, FaChevronLeft, FaChevronRight, FaStar } from "react-icons/fa";
+import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "@firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { db, auth } from "../firebase-config";
+import { useAuth } from "../AuthContext";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
 import Alert from "../components/Alert";
@@ -15,11 +19,12 @@ const Homepage = () => {
   const [error, setError] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [favList, setFavList] = useState([]);
-  const [showFavorites, setShowFavorites] = useState(false);
-  const [alert, setAlert] = useState({ show: false, type: '', msg: ''});
+  const [showFavList, setShowFavList] = useState(false);
+  const [alert, setAlert] = useState({ show: false, type: "", msg: "" });
 
-  // add favorites to array in user doc, get favorites from user doc rather than local storage
+  const { user } = useAuth();
 
+  // fetch crytocurrency data from coingecko
   useEffect(() => {
     setLoading(true);
     setError(false);
@@ -35,9 +40,27 @@ const Homepage = () => {
       .catch((error) => {
         setError(true);
         setLoading(false);
-        console.log(error);
+        console.log(error.message);
       });
   }, []);
+
+  // display users favorites on login
+  useEffect(() => {
+    const getFirestoreFavList = async () => {
+      try {
+        const userDoc = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userDoc);
+        if (docSnap.exists()) {
+          setFavList(docSnap.data().favorites);
+        } else {
+          console.log("Favorites list not found");
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getFirestoreFavList();
+  }, [user]);
 
   // search
   const handleChange = (e) => {
@@ -51,29 +74,39 @@ const Homepage = () => {
   };
 
   // add and remove favorites
-  const handleFavorite = (id) => {
-    if (favList.includes(id)) {
-      showAlert(true, "remove", `${id} removed from favorites!`);
-      setFavList((current) =>
-        current.filter((element) => {
-          return element !== id;
-        })
-      );
-    } else {
-      showAlert(true, "add", `${id} added to favorites!`);
-      setFavList([...favList, id]);
+  const handleFavorite = async (id) => {
+    if (user) {
+      const userDoc = doc(db, "users", user.uid);
+
+      if (favList.includes(id)) {
+        showAlert(true, "remove", `${id} removed from favorites!`);
+        setFavList((current) =>
+          current.filter((element) => {
+            return element !== id;
+          })
+        );
+        await updateDoc(userDoc, {
+          favorites: arrayRemove(id),
+        });
+      } else {
+        showAlert(true, "add", `${id} added to favorites!`);
+        setFavList([...favList, id]);
+        await updateDoc(userDoc, {
+          favorites: arrayUnion(id),
+        });
+      }
     }
   };
-
+  
   // filter favorites
-  function toggleShowFavorites() {
+  function toggleShowFavList() {
     setCurrentPage(0);
-    setShowFavorites(!showFavorites);
-  };
+    setShowFavList(!showFavList);
+  }
 
   // display coins
   const filteredCoins = () => {
-    if (showFavorites) {
+    if (showFavList) {
       return coins.filter((coin) => favList.includes(coin.id));
     } else {
       return coins.filter(
@@ -140,15 +173,11 @@ const Homepage = () => {
 
         <div className="favorites">
           <div className="favorites__switch">
-            <input
-              id="showFavs"
-              type="checkbox"
-              onChange={toggleShowFavorites}
-            />
+            <input id="showFavs" type="checkbox" onChange={toggleShowFavList} />
             <span className="favorites__slider"></span>
           </div>
           <label className="favorites__label" htmlFor="showFavs">
-            {showFavorites ? `Show All` : `Show Favorites`}
+            {showFavList ? `Show All` : `Show Favorites`}
           </label>
           {alert.show && <Alert {...alert} showAlert={showAlert} />}
         </div>
