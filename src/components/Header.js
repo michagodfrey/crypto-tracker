@@ -6,7 +6,7 @@ import { auth } from "../firebase-config";
 import rocket from "../clipart/rocket.png";
 import Modal from './Modal';
 
-const Header = () => {
+const Header = ({ setFavList, showAlert }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { user } = useAuth();
@@ -26,8 +26,9 @@ const Header = () => {
     await signOut(auth);
     localStorage.setItem("userName", "");
     localStorage.setItem("userEmail", "");
-    localStorage.setItem("userImg", "");
-    alert(`You have logged out.`);
+    localStorage.setItem("userImage", "");
+    setFavList([]);
+    showAlert(true, "warning", "Logged out!");
   };
 
   return (
@@ -40,9 +41,9 @@ const Header = () => {
         {user ? (
           <>
             <span>
-              {localStorage.getItem("userImg") ? (
+              {localStorage.getItem("userImage") ? (
                 <img
-                  src={`${localStorage.getItem("userImg")}`}
+                  src={`${localStorage.getItem("userImage")}`}
                   alt={`${user.displayName}`}
                 />
               ) : null}
@@ -61,6 +62,7 @@ const Header = () => {
       <Modal
         isModalOpen={isModalOpen}
         closeModal={closeModal}
+        showAlert={showAlert}
       />
     </header>
   );

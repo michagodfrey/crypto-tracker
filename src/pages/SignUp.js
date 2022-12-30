@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "@firebase/firestore";
 import { auth, db } from "../firebase-config";
+import { useAuth } from "../AuthContext";
 import Header from '../components/Header';
 import Banner from "../components/Banner";
 import Footer from '../components/Footer';
@@ -14,6 +15,8 @@ const SignUp = () => {
 
     const navigate = useNavigate();
 
+    const { showAlert } = useAuth();
+
     const register = () => {
         createUserWithEmailAndPassword(
             auth,
@@ -22,12 +25,19 @@ const SignUp = () => {
         )
         .then(async (res) => {
         const ref = doc(db, "users", res.user.uid);
-        await setDoc(ref, { email: registerEmail, name: registerName, favorites: [] });
+        await setDoc(ref, {
+          email: registerEmail,
+          name: registerName,
+          favorites: [],
+          image: "http://placeimg.com/50/50/animals",
+        });
         localStorage.setItem("userName", registerName);
         localStorage.setItem("userEmail", registerEmail);
+        localStorage.setItem("userImg", "http://placeimg.com/50/50/animals");
         })
         .then(() => {
         navigate("/");
+        showAlert(true, "success", "Welcome!");
         })
         .catch((error) => {
         document.getElementById("signupErrorMsg").innerHTML = `${error.message}`;
@@ -35,44 +45,44 @@ const SignUp = () => {
     };
 
     return (
-        <>
+      <>
         <Header />
         <main>
-            <Banner />
-            <div className="admin">
+          <Banner />
+          <div className="admin">
             <h2>Register with email</h2>
+            <p id="signupErrorMsg"></p>
             <form>
-                <input
+              <input
                 placeholder="name (optional)"
                 onChange={(event) => {
-                    setRegisterName(event.target.value);
+                  setRegisterName(event.target.value);
                 }}
-                />
-                <input
+              />
+              <input
                 type="email"
                 placeholder="email"
                 onChange={(event) => {
-                    setRegisterEmail(event.target.value);
+                  setRegisterEmail(event.target.value);
                 }}
-                />
-                <input
+              />
+              <input
                 type="password"
                 placeholder="password"
                 onChange={(event) => {
-                    setRegisterPassword(event.target.value);
+                  setRegisterPassword(event.target.value);
                 }}
-                />
+              />
             </form>
-            <p id="signupErrorMsg"></p>
             <button onClick={register}>Sign up</button>
             <p>
-                Login credientials stored securely on{" "}
-                <a href="https://firebase.google.com/">Firebase</a>
+              Login credientials stored securely on{" "}
+              <a href="https://firebase.google.com/">Firebase</a>
             </p>
-            </div>
+          </div>
         </main>
         <Footer />
-        </>
+      </>
     );
 }
 

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { db, auth, googleProvider } from "../firebase-config";
-import { doc, setDoc } from "@firebase/firestore";
+import { doc, collection, query, where, setDoc } from "@firebase/firestore";
 import { FaTimes } from "react-icons/fa";
 
-const Modal = ({ isModalOpen, closeModal, userId }) => {
+const Modal = ({ isModalOpen, closeModal, showAlert }) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -13,6 +13,7 @@ const Modal = ({ isModalOpen, closeModal, userId }) => {
     try {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       closeModal();
+      showAlert(true, "success", "Logged in!");
     } catch (error) {
       document.getElementById("modalErrorMsg").innerHTML = `${error.message}`;
     }
@@ -21,15 +22,27 @@ const Modal = ({ isModalOpen, closeModal, userId }) => {
   const signInWithGoogle = () => {
     signInWithPopup(auth, googleProvider)
       .then(async (res) => {
+
         const registerName = res.user.displayName;
         const registerEmail = res.user.email;
         const registerImage = res.user.photoURL;
 
-        const ref = doc(db, "users", res.user.uid);
-        await setDoc(ref, { email: registerEmail, name: registerName, image: registerImage, favorites: [] });
+        const usersCol = collection(db, "users");
+        const userExists = query(usersCol, where("email", "==", registerEmail))
+
+        if (!userExists) {
+          const ref = doc(db, "users", res.user.uid);
+          await setDoc(ref, {
+            email: registerEmail,
+            name: registerName,
+            image: registerImage,
+            favorites: [],
+          });
+        }  
       })
       .then(() => {
         closeModal();
+        showAlert(true, "success", "Logged in!");
       })
       .catch((error) => {
         document.getElementById("modalErrorMsg").innerHTML = `${error.message}`;
@@ -48,12 +61,12 @@ const Modal = ({ isModalOpen, closeModal, userId }) => {
             <h2>Sign in</h2>
           </div>
           <div>
-            <button onClick={closeModal}>
+            <span onClick={closeModal}>
               <FaTimes></FaTimes>
-            </button>
+            </span>
           </div>
         </div>
-
+        <span id="modalErrorMsg"></span>
         <form>
           <input
             id="modalEmail"
@@ -74,11 +87,17 @@ const Modal = ({ isModalOpen, closeModal, userId }) => {
             }}
           />
         </form>
-
-        <button className="modal-container__login" onClick={login}>
+        <button
+          type="submit"
+          className="modal-container__login"
+          onClick={login}
+        >
           Login
         </button>
-        <p id="modalErrorMsg"></p>
+        <br></br>
+        <br></br>
+        <hr></hr>
+        <p>Or sign in with Google</p>
         <p>
           <button className="login-with-google-btn" onClick={signInWithGoogle}>
             Sign in with Google

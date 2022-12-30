@@ -7,7 +7,7 @@ const Alert = ({ type, msg, showAlert }) => {
       }, 3000);
       return () => clearTimeout(timeout);
     }, [showAlert]);
-  return <span className={`favorites__alert favorites__alert--${type}`}>{msg}</span>
+  return <span className={`alert alert--${type}`}>{msg}</span>
 }
 
 export default Alert

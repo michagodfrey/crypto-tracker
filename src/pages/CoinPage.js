@@ -29,6 +29,9 @@ const CoinPage = () => {
         setError(true);
         setLoading(false);
         console.log(error);
+        document.getElementById(
+          "coinErrorMsg"
+        ).innerHTML = `${error.message}`;
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -52,7 +55,7 @@ const CoinPage = () => {
       <>
         <Header />
         <main>
-          <div className="error">Error loading data.</div>
+          <div id="coinErrorMsg" className="error"></div>
         </main>
         <Footer />
       </>

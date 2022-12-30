@@ -3,8 +3,7 @@ import axios from "axios";
 import ReactPaginate from "react-paginate";
 import { FaSearch, FaChevronLeft, FaChevronRight, FaStar } from "react-icons/fa";
 import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "@firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
-import { db, auth } from "../firebase-config";
+import { db } from "../firebase-config";
 import { useAuth } from "../AuthContext";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
@@ -20,9 +19,8 @@ const Homepage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [favList, setFavList] = useState([]);
   const [showFavList, setShowFavList] = useState(false);
-  const [alert, setAlert] = useState({ show: false, type: "", msg: "" });
-
-  const { user } = useAuth();
+  
+  const { user, showAlert, alert } = useAuth();
 
   // fetch crytocurrency data from coingecko
   useEffect(() => {
@@ -41,6 +39,9 @@ const Homepage = () => {
         setError(true);
         setLoading(false);
         console.log(error.message);
+        document.getElementById(
+          "dataErrorMsg"
+        ).innerHTML = `${error.message}`;
       });
   }, []);
 
@@ -68,18 +69,12 @@ const Homepage = () => {
     setSearch(e.target.value);
   };
 
-  // alert message for adding/removing favorites
-  const showAlert = (show = false, type = "", msg = "") => {
-    setAlert({ show, type, msg });
-  };
-
   // add and remove favorites
   const handleFavorite = async (id) => {
     if (user) {
       const userDoc = doc(db, "users", user.uid);
-
       if (favList.includes(id)) {
-        showAlert(true, "remove", `${id} removed from favorites!`);
+        showAlert(true, "warning", `${id} removed from favorites!`);
         setFavList((current) =>
           current.filter((element) => {
             return element !== id;
@@ -89,15 +84,27 @@ const Homepage = () => {
           favorites: arrayRemove(id),
         });
       } else {
-        showAlert(true, "add", `${id} added to favorites!`);
+        showAlert(true, "success", `${id} added to favorites!`);
         setFavList([...favList, id]);
         await updateDoc(userDoc, {
           favorites: arrayUnion(id),
         });
       }
+    } else {
+      if (favList.includes(id)) {
+        showAlert(true, "warning", `${id} removed from favorites!`);
+        setFavList((current) =>
+          current.filter((element) => {
+            return element !== id;
+          })
+        );
+      } else {
+        showAlert(true, "success", `${id} added to favorites!`);
+        setFavList([...favList, id]);
+      }
     }
   };
-  
+
   // filter favorites
   function toggleShowFavList() {
     setCurrentPage(0);
@@ -145,7 +152,7 @@ const Homepage = () => {
       <>
         <Header />
         <main>
-          <div className="error">Error loading data.</div>
+          <div id="dataErrorMsg" className="error"></div>
         </main>
         <Footer />
       </>
@@ -154,8 +161,10 @@ const Homepage = () => {
 
   return (
     <>
-      <Header />
+      <Header setFavList={setFavList} showAlert={showAlert} />
+
       <main>
+        {alert.show && <Alert {...alert} showAlert={showAlert} />}
         <Banner />
 
         <div className="search">
@@ -179,7 +188,6 @@ const Homepage = () => {
           <label className="favorites__label" htmlFor="showFavs">
             {showFavList ? `Show All` : `Show Favorites`}
           </label>
-          {alert.show && <Alert {...alert} showAlert={showAlert} />}
         </div>
 
         <div className="table-container">
